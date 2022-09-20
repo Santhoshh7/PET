@@ -1,0 +1,79 @@
+<html>
+    <html>
+<style>
+  h1 {
+    text-align: center;
+    color: bisque;
+    font-size: 150px;
+  }
+
+  .login {
+
+  text-align: center;
+  display: inline-block;
+  border: none;
+}
+
+.Thome {
+  text-align: center;
+  display: inline-block;
+  border: none;
+}
+.f1 {
+  display:inline-block;
+  padding-top: 50px;
+}
+.f2 {
+  display:inline-block;
+}
+
+  p {
+    text-align: center;
+  }
+
+.center {
+  text-align:center;
+}
+.c1{
+  font-size: 25px;
+}
+  div {
+    text-align: center;
+    margin-top: -90px;
+  }
+  button:hover{
+    cursor: pointer;
+    background-color:green;
+}
+button{
+  width: 150px;
+  height:40px;
+  border-radius: 15px;
+  background-color: rgb(206, 54, 54);
+  border: none;
+  font-size: 20px;
+}
+
+</style>
+
+<head>
+  <h1> NIP-PET</h1>
+</head>
+<div class="container">
+    <body>
+         
+      <p>
+       <b class="c1"> Welcome to NIP-PET</b>
+      </p>
+      {% with messages = get_flashed_messages() %}
+      {% if messages %}
+         {% for message in messages %}
+             {{ message }}
+         {% endfor %}
+     {% endif %}
+ {% endwith %}  
+ <button onclick="location.href='http://127.0.0.1:2027/login'" type="button">Login</button>
+            <button onclick="location.href='http://127.0.0.1:2027/signup'" type="button">Sign up</button>
+            </div>
+    </body>
+</html>
