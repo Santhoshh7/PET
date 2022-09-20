@@ -1,0 +1,55 @@
+<html>
+<style>
+  h1 {
+    text-align: center;
+  }
+  h2 {
+    text-align: center;
+  }
+
+
+  p {
+    text-align: center;
+  }
+
+  div {
+    text-align: center;
+  }
+  #email{
+  margin-left:0.5em ;
+}
+</style>
+
+<head>
+  <h1> NIP-PET </h1>
+</head>
+
+<head>
+  <h2> LOGIN </h2>
+</head>
+<body>
+  <p>
+    <b> Welcome to NIP-PET </b>
+   </p>
+   <div class="container">
+  <form action="/login" method="post">
+      <label for="email"><b>Email id</b></label> 
+      <input type="email" placeholder="Enter email id" name="email" required id="email"><br>
+      <br>
+      <label for="password"><b>Password</b></label>
+      <input type="password" placeholder="Enter Password" name="password" required><br>
+      <br>
+      <button type="submit">Login</button>
+      
+      <button type="button" onclick="location.href='http://127.0.0.1:2027'">BACK</button>
+    </div>
+  </form>
+  {% with messages = get_flashed_messages() %}
+  {% if messages %}
+     {% for message in messages %}
+         {{ message }}
+     {% endfor %}
+ {% endif %}
+{% endwith %}
+</body>
+</html>
