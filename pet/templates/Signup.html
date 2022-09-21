@@ -4,6 +4,7 @@
     h1 {
         text-align: center;
     }
+
     h2 {
         text-align: center;
         color: red;
@@ -19,19 +20,20 @@
     }
 
     div {
-    text-align: center;  
-  }
-  
-#email{
-    margin-left:2em ;
-}
-#contact{
-    margin-left: .7em;
-}
-button:hover{
-    cursor: pointer;
-}
+        text-align: center;
+    }
 
+    #email {
+        margin-left: 2em;
+    }
+
+    #contact {
+        margin-left: .7em;
+    }
+
+    button:hover {
+        cursor: pointer;
+    }
 </style>
 
 <head>
@@ -41,16 +43,16 @@ button:hover{
 
 
 <body>
-     
+
     <form actions="/signup" method="post">
         <h2>
-        {% with messages = get_flashed_messages() %}
-        {% if messages %}
-           {% for message in messages %}
-               {{ message }}
-           {% endfor %}
-       {% endif %}
-   {% endwith %}
+            {% with messages = get_flashed_messages() %}
+            {% if messages %}
+            {% for message in messages %}
+            {{ message }}
+            {% endfor %}
+            {% endif %}
+            {% endwith %}
         </h2>
         <div class="container">
 
@@ -60,16 +62,16 @@ button:hover{
             <label for="password"><b>Password</label></b></label>
             <input type="password" placeholder="Enter Password" name="password" required><br>
             <br>
-            <label for="email"><b>Email</b></label> 
+            <label for="email"><b>Email</b></label>
             <input type="email" placeholder="Enter email id" name="email" required id="email"><br>
             <br>
             <label for="number"><b>Contact </b></label>
             <input type="text" placeholder="Enter Contact num" name="contact" required id="contact"><br>
             <br>
-</select><br>
+            </select><br>
             <br>
             <button type="submit">Sign up</button>
-            <button type="button" onclick="location.href='http://127.0.0.1:2027'" >BACK</button>
+            <button type="button" onclick="location.href='http://127.0.0.1:2027'">BACK</button>
         </div>
     </form>
 </body>

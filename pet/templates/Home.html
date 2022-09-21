@@ -1,80 +1,95 @@
-{% include 'navbar.html' %}
+{% extends 'sidenav.html' %}
 <html>
-    <html>
 <style>
   h1 {
-    text-align: center;
     color: bisque;
+    display: flex;
     font-size: 150px;
+    justify-content: center;
   }
 
   .login {
 
-  text-align: center;
-  display: inline-block;
-  border: none;
-}
+    text-align: center;
+    display: inline-block;
+    border: none;
+  }
 
-.Thome {
-  text-align: center;
-  display: inline-block;
-  border: none;
-}
-.f1 {
-  display:inline-block;
-  padding-top: 50px;
-}
-.f2 {
-  display:inline-block;
-}
+  .Thome {
+    text-align: center;
+    display: inline-block;
+    border: none;
+  }
+
+  .f1 {
+    display: inline-block;
+    padding-top: 50px;
+  }
+
+  .f2 {
+    display: inline-block;
+  }
 
   p {
     text-align: center;
   }
 
-.center {
-  text-align:center;
-}
-.c1{
-  font-size: 25px;
-}
+  .center {
+    text-align: center;
+  }
+
+  .c1 {
+    font-size: 25px;
+  }
+
   div {
     text-align: center;
     margin-top: -90px;
   }
-  button:hover{
+
+  button:hover {
     cursor: pointer;
-    background-color:green;
-}
-button{
-  width: 150px;
-  height:40px;
-  border-radius: 15px;
-  background-color: rgb(206, 54, 54);
-  border: none;
-  font-size: 20px;
-}
+    background-color: green;
+  }
 
+  button {
+    width: 150px;
+    height: 40px;
+    border-radius: 15px;
+    background-color: rgb(206, 54, 54);
+    border: none;
+    font-size: 20px;
+  }
+
+  h1 {
+    font-size: calc(1.375rem + 1.5vw);
+    display: flex;
+    justify-content: center;
+  }
+
+  .c1 {
+    justify-content: center;
+    display: flex;
+  }
 </style>
+{%block body %}
 
-<head>
-  <h1> NIP-PET</h1>
-</head>
+<h1 style="display:flex; justify-content:center; margin-bottom: 30px;"> NIP-PET</h1>
 <div class="container">
-    <body>
-         
-      <p>
-       <b class="c1"> Welcome to NIP-PET</b>
-      </p>
-      {% with messages = get_flashed_messages() %}
-      {% if messages %}
-         {% for message in messages %}
-             {{ message }}
-         {% endfor %}
-     {% endif %}
- {% endwith %}  
- <button onclick="location.href='http://127.0.0.1:2027/login'" type="button">Login</button>
-            <button onclick="location.href='http://127.0.0.1:2027/signup'" type="button">Sign up</button>
-            </div>
-    </body>
-</html>
+  <p>
+    <b style="display:flex; justify-content:center;" class="c1"> Welcome to NIP-PET</b>
+  </p>
+  {% with messages = get_flashed_messages() %}
+  {% if messages %}
+  {% for message in messages %}
+  {{ message }}
+  {% endfor %}
+  {% endif %}
+  {% endwith %}
+  <div style="display:flex; justify-content:center;" class="button div">
+
+  <button style = "margin-right:14px;padding: 0.6rem;"onclick="location.href='http://127.0.0.1:2027/login'" type="button">Login</button>
+  <button  style = "padding: 0.6rem;" onclick="location.href='http://127.0.0.1:2027/signup'" type="button">Sign up</button>
+  </div>
+</div>
+{%endblock%}

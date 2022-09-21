@@ -1,0 +1,46 @@
+<html>
+
+<body>
+
+    <!-- select breed -->
+    <form action="/Parrot" method="POST">
+        <label for="Breed"><b>Breed</label></b></label>
+        <select name="bbreed" required id="bbreed">
+            <option value="none" selected disabled hidden>Select Breed</option>
+            <option value="parrots">Parrots</option>
+            <option value="cockateil">cockateil</option>
+            <option value="budgies">Budgies</option>
+            <option value="all">All</option>
+        </select>
+        <br>
+        <br>
+        <label for="pname"><b>Product Name</b></label>
+        <input type="text" placeholder="Enter Product Name" name="pname" required><br>
+        <br>
+
+        <label for="pid"><b>Product ID</b></label>
+        <input type="text" placeholder="Enter Productid" name="pid" required><br>
+
+        <br>
+        <label for="price"><b>Price</b></label>
+        <input type="text" placeholder="Enter Price" name="price" required><br>
+        <br>
+
+        <label for="edate"><b>Expries In</b></label>
+        <input type="text" placeholder="Expires In(days)" name="edate" required><br>
+        <br>
+
+        <label for="stock"><b>Stock Count</b></label>
+        <input type="text" placeholder="Enter Count" name="stock" required><br>
+        <br>
+
+        <label for="disc"><b>Discount</b></label>
+        <input type="text" placeholder="Discount" name="disc" required><br>
+
+        <br>
+
+        <button type="submit">Add</button>
+    </form>
+</body>
+
+</html>
