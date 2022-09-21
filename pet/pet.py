@@ -69,7 +69,7 @@ def login():
 @PET.route("/logout",methods=["GET","POST"])
 def Logout():
     session["email"]=None
-    return redirect("/home")
+    return redirect("/")
 
 #ADMIN PAGE
 
