@@ -13,7 +13,8 @@ mongo = PyMongo(PET)
 sessionv=Session(PET)
 
 db=mongo.db.users
-db1=mongo.db.admin
+db1=mongo.db.animals
+db2=mongo.db.sales
 
 
 #HOME
@@ -49,11 +50,16 @@ def login():
     if request.method=="POST":
         email=request.form['email']
         password=request.form['password']
-        test=list(db.find({'email':request.form['email'],'password':request.form['password']},{"_id":0,"username":0}))
-        check=list(db.find({'email':request.form['email'],'password':request.form['password']},{'name':0,'password':0,"_id":0,"email":0,"contact":0}))
+        test=list(db.find({'email':"admin@gmail.com",'password':"admin"},{"_id":0}))
+        check=list(db.find({'email':request.form['email'],'password':request.form['password']},{'_id':0}))
         if(test):
             session["email"]=email
-            return redirect("/")
+            flash("Welcome Admin")
+            return redirect("/Admin")
+        elif(check):
+            session["email"]=email
+            flash(f"Logged in as: " +email)
+            return redirect("/users")
         else:
             flash("INVALID LOGIN")
     return render_template("Login.html")
@@ -64,8 +70,38 @@ def login():
 def Logout():
     session["email"]=None
     return redirect("/home")
-    
 
+#ADMIN PAGE
+
+@PET.route("/Admin",methods=["GET","POST"])
+def Admin():
+    return render_template("admin.html")
+    
+#CHOOSE ANIMALS
+@PET.route("/Animals",methods=["GET","POST"])
+def Animal():
+    return render_template("admin.html")
+
+#DOG ADD
+@PET.route("/Dog",methods=["GET","POST"])
+def Dog():
+    return render_template("dadd.html")
+
+#CAT ADD
+@PET.route("/Cat",methods=["GET","POST"])
+def Cat():
+    return render_template("cadd.html")
+
+
+#Parrot ADD
+@PET.route("/Parrot",methods=["GET","POST"])
+def Parrot():
+    return render_template("padd.html")
+
+#Turtle ADD
+@PET.route("/Turtle",methods=["GET","POST"])
+def turtle():
+    return render_template("tadd.html")
 
 if __name__ == "__main__":
     PET.run(debug=True,port=2027)
