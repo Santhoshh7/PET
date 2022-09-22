@@ -85,35 +85,146 @@ def Animal():
 #DOG ADD
 @PET.route("/Dog",methods=["GET","POST"])
 def Dog():
+    if request.method=="POST":
+        Breed=request.form.get('dbreed')
+        Product_Name=request.form['pname']
+        Product_Type=request.form.get('ptype')
+        Product_Id=request.form['pid']
+        Price=request.form['price']
+        Expires_in=request.form['edate']
+        Stock_Count=request.form['stock'] 
+        Discount=request.form['disc'] 
+
+        id=db1.insert_one({
+            'Animal': 'Dog',
+            'Breed':Breed,
+            'Product_Name':Product_Name,
+            'Product_Type':Product_Type,
+            'Product_Id':Product_Id,
+            'Price':Price,
+            'Expires_in':Expires_in,
+            'Stock_Count':Stock_Count,
+            'Discount':Discount})
+        flash("Data added Successfully")
     return render_template("dadd.html")
 
 #CAT ADD
 @PET.route("/Cat",methods=["GET","POST"])
 def Cat():
+    if request.method=="POST":
+        Product_Name=request.form['pname']
+        Product_Type=request.form.get('ptype')
+        Product_Id=request.form['pid']
+        Price=request.form['price']
+        Expires_in=request.form['edate']
+        Stock_Count=request.form['stock'] 
+        Discount=request.form['disc'] 
+
+        id=db1.insert_one({
+            'Animal': 'Cat',
+            'Breed': 'None',
+            'Product_Name':Product_Name,
+            'Product_Type':Product_Type,
+            'Product_Id':Product_Id,
+            'Price':Price,
+            'Expires_in':Expires_in,
+            'Stock_Count':Stock_Count,
+            'Discount':Discount})
+        flash("Data added Successfully")
     return render_template("cadd.html")
 
 
 #Parrot ADD
 @PET.route("/Parrot",methods=["GET","POST"])
 def Parrot():
+    
+    if request.method=="POST":
+        Breed=request.form.get('bbreed')
+        Product_Name=request.form['pname']
+        Product_Type=request.form.get('ptype')
+        Product_Id=request.form['pid']
+        Price=request.form['price']
+        Expires_in=request.form['edate']
+        Stock_Count=request.form['stock'] 
+        Discount=request.form['disc'] 
+
+        id=db1.insert_one({
+            'Animal': 'Bird',
+            'Breed':Breed,
+            'Product_Name':Product_Name,
+            'Product_Type':Product_Type,
+            'Product_Id':Product_Id,
+            'Price':Price,
+            'Expires_in':Expires_in,
+            'Stock_Count':Stock_Count,
+            'Discount':Discount})
+        flash("Data added Successfully")
     return render_template("padd.html")
 
 #Turtle ADD
 @PET.route("/Turtle",methods=["GET","POST"])
 def turtle():
+    
+    if request.method=="POST":
+        Product_Name=request.form['pname']
+        Product_Type=request.form.get('ptype')
+        Product_Id=request.form['pid']
+        Price=request.form['price']
+        Expires_in=request.form['edate']
+        Stock_Count=request.form['stock'] 
+        Discount=request.form['disc'] 
+
+        id=db1.insert_one({
+            'Animal': 'Turtle',
+            'Breed': 'None',
+            'Product_Name':Product_Name,
+            'Product_Type':Product_Type,
+            'Product_Id':Product_Id,
+            'Price':Price,
+            'Expires_in':Expires_in,
+            'Stock_Count':Stock_Count,
+            'Discount':Discount})
+        flash("Data added Successfully")
     return render_template("tadd.html")
 
    
-#ADD
-@PET.route("/add")
-def Add():
-    return render_template("add.html")
+#INVENTORY
+@PET.route("/inventory",methods=["GET","POST"])
+def Inventory():
+    Animal=request.form.get('Animal')
+    det=[]
+    if request.method=="POST":
+        if (list((db1.find({'Animal':Animal})))):
+            data=(list((db1.find({'Animal':Animal}))))
+            for i in data:
+                det.append(i)
+        else:
+            flash(f"Sorry no products found")
 
-@PET.route("/users")
+    return render_template("inventory.html",det=det)
+
+#ADMIN DELETE   
+@PET.route("/delete/<id>",methods=["GET","POST"])
+def dele(id):
+    if 'email' in session:
+        db1.delete_one({'_id':ObjectId(id)})
+    return redirect(url_for('Inventory'))
+
+#ADMIN UPDATE
+@PET.route("/update/<id>",methods=["POST"])
+def update(id):
+    print(id)
+    if request.method=="POST":
+        yy = db1.update_many({'_id':ObjectId(id)},  { "$set": {'Breed':request.form.get('bbreed'),'Expires_in':request.form.get('edate'),'Product_Name':request.form['pname'],'Product_Type':request.form['ptype'],'Product_Id':request.form['pid'],'Price':request.form['price'],'Stock_Count':request.form['stock'],'Discount':request.form['disc']}})
+    return redirect(url_for('Inventory'))
+
+#USERS
+@PET.route("/users",methods=["GET","POST"])
 def Dummy():
     return render_template("user.html")
 
-@PET.route("/sidenav")
+#SIDENAV
+@PET.route("/sidenav",methods=["GET","POST"])
 def sidenav():
     return render_template("sidenav.html")
 

@@ -2,57 +2,58 @@
 
 <body>
 
-    <!-- select breed -->
-    <form action="/dogbreed" method="POST">
+   
+    <form action="/Dog" method="POST">
+        <label for="Breed"><b>Breed</label></b></label>
+        <select name="dbreed" required id="dbreed">
+            <option value="none" selected disabled hidden>Select Breed</option>
+            <option value="beagle">Beagle</option>
+            <option value="gretriver">Golden Retriver</option>
+            <option value="stzu">Shih Tzu</option>
+            <option value="gsheperd">German Shepard</option>
+            <option value="pug">Pug</option>
+            <option value="bdog">Bull dog</option>
+            <option value="chippiparai">Chipp parai</option>
+            <option value="rajapalayam">Rajapalayam</option>
+            <option value="kanni">Kanni</option>
+            <option value="doberman">Doberman</option>
+        </select>
+        <br>
+        <label for="pname"><b>Product Name</b></label>
+        <input type="text" placeholder="Enter Product Name" name="pname" required><br>
+        <br>
 
-        <!-- dog breed -->
+        <label for="pid"><b>Product ID</b></label>
+        <input type="text" placeholder="Enter Productid" name="pid" required><br>
 
-        <form action="/Dog" method="POST">
-            <label for="Breed"><b>Breed</label></b></label>
-            <select name="dbreed" required id="dbreed">
-                <option value="none" selected disabled hidden>Select Breed</option>
-                <option value="beagle">Beagle</option>
-                <option value="gretriver">Golden Retriver</option>
-                <option value="stzu">Shih Tzu</option>
-                <option value="gsheperd">German Shepard</option>
-                <option value="pug">Pug</option>
-                <option value="bdog">Bull dog</option>
-                <option value="chippiparai">Chipp parai</option>
-                <option value="rajapalayam">Rajapalayam</option>
-                <option value="kanni">Kanni</option>
-                <option value="doberman">Doberman</option>
-            </select>
-            <br>
+        <br>
+        <label for="price"><b>Price</b></label>
+        <input type="text" placeholder="Enter Price" name="price" required><br>
+        <br>
 
-            <br>
-            <form action="/pdata" method="POST">
-                <label for="pname"><b>Product Name</b></label>
-                <input type="text" placeholder="Enter Product Name" name="pname" required><br>
-                <br>
+        <label for="edate"><b>Expries In</b></label>
+        <input type="text" placeholder="Expires In(days)" name="edate" required><br>
+        <br>
 
-                <label for="pid"><b>Product ID</b></label>
-                <input type="text" placeholder="Enter Productid" name="pid" required><br>
+        <label for="stock"><b>Stock Count</b></label>
+        <input type="text" placeholder="Enter Count" name="stock" required><br>
+        <br>
 
-                <br>
-                <label for="price"><b>Price</b></label>
-                <input type="text" placeholder="Enter Price" name="price" required><br>
-                <br>
+        <label for="Product_Type"><b>Product_Type</label></b></label>
+        <select name="ptype" required id="ptype">
+            <option value="none" selected disabled hidden>Select Product Type</option>
+            <option value="Toy">Toy</option>
+            <option value="Food">Food</option>
+            <option value="Health_Care">Health_Care</option>
+        </select>
+        
+        <label for="disc"><b>Discount</b></label>
+        <input type="text" placeholder="Discount" name="disc" required><br>
 
-                <label for="edate"><b>Expries In</b></label>
-                <input type="text" placeholder="Expires In(days)" name="edate" required><br>
-                <br>
+        <br>
 
-                <label for="stock"><b>Stock Count</b></label>
-                <input type="text" placeholder="Enter Count" name="stock" required><br>
-                <br>
-
-                <label for="disc"><b>Discount</b></label>
-                <input type="text" placeholder="Discount" name="disc" required><br>
-
-                <br>
-
-                <button type="submit">Add</button>
-            </form>
+        <button type="submit">Add</button>
+    </form>
 </body>
 
 </html>
