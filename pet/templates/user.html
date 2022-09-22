@@ -1,5 +1,15 @@
-{%include 'navbar.html' %}
-<link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+{%extends 'sidenav.html' %}
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.0.0/css/font-awesome.css"
+    integrity="sha512-72McA95q/YhjwmWFMGe8RI3aZIMCTJWPBbV8iQY3jy1z9+bi6+jHnERuNrDPo/WGYEzzNs4WdHNyyEr/yXJ9pA=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+<!-- BOX ICONS CSS-->
+<link href="https://cdn.jsdelivr.net/npm/boxicons@2.0.5/css/boxicons.min.css" rel="stylesheet" />
+<!-- custom css -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css"
+    integrity="sha512-xh6O/CkQoPOWDdYTDqeRdPCVd1SpvCA9XXcUnZS2FmJNp1coAFzvtCN9BmamE+4aHK8yyUHUSCcJHgXloTyT2A=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
 <style>
     @import url('https://fonts.googleapis.com/css?family=Libre+Baskerville:400,700');
 
@@ -225,7 +235,7 @@
         padding-right: 1em;
     }
 
-    .btn-group {
+    .btn-group-minus {
         margin-left: -8em;
     }
 
@@ -241,17 +251,9 @@
 
     }
 
-    i.fa.fa-plus {
-        background-color: rgb(244, 205, 133);
-        padding: 10px;
-        margin-top: -5px
-    }
 
-    i.fa.fa-minus {
-        background-color: rgb(244, 205, 133);
-        padding: 10px;
-        margin-top: -5px
-    }
+
+
 
     .price {
         margin-left: 68px;
@@ -265,6 +267,11 @@
     .nav {
         z-index: 2;
     }
+
+    .additems {
+        display: flex;
+        justify-content: center;
+    }
 </style>
 <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
 <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
@@ -272,7 +279,9 @@
 
 <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"
     integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
-<h1 class="trending"> TRENDING PRODUCTS</h1>
+{%block body %}
+<h1 class="trending" style="margin-left: 33%; margin-bottom:30px"> TRENDING PRODUCTS</h1>
+
 <section>
     <div class="container">
         <div class="row" style="justify-content: space-evenly;">
@@ -286,14 +295,15 @@
                         <p class="card-text">Some quick example text to build on the card title and make up the bulk of
                             the card's content.</p>
                         <p class="price"><strong class>Price: $1</strong></p>
-                        <div class="btn-group" role="group" aria-label="Basic example">
-                            <button style="
-                                font-size:xx-small;margin:auto;margin-left: 20em;" type="button" class="btn  lft"><i
-                                    class="fa fa-minus"></i></button>
-                            <span>0</span>
-                            <button style="
-                                font-size:xx-small;margin:auto;" type="button" class="btn"><i
-                                    class="fa fa-plus"></i></button>
+                        <div class="pill"
+                            style="margin:1rem auto;color: #fff;border-radius: 0.8rem; background-color: #006EFF ;width: 50%;display: flex; align-items: center;justify-content: space-evenly;">
+                            <button onclick="decrement()"
+                                style="border: none;color: #fff;background-color: #006EFF; padding: 0.6rem;"
+                                id="btn-minus">-</button>
+                            <h4 id="count" style="margin-top: 0.5rem;">0</h4>
+                            <button onclick="increment()"
+                                style="border: none;color: #fff;background-color: #006EFF; padding: 0.6rem;"
+                                id="btn-plus">+</button>
                         </div>
                     </div>
                 </div>
@@ -308,14 +318,15 @@
                         <p class="card-text">Some quick example text to build on the card title and make up the bulk of
                             the card's content.</p>
                         <p class="price"><strong>Price: $1</strong></p>
-                        <div class="btn-group" role="group" aria-label="Basic example">
-                            <button style="
-                                    font-size:xx-small;margin:auto;margin-left: 20em;" type="button"
-                                class="btn  lft"><i class="fa fa-minus"></i></button>
-                            <span>0</span>
-                            <button style="
-                                    font-size:xx-small;margin:auto;" type="button" class="btn"><i
-                                    class="fa fa-plus"></i></button>
+                        <div class="pill"
+                            style="margin:1rem auto;color: #fff;border-radius: 0.8rem; background-color: #006EFF ;width: 50%;display: flex; align-items: center;justify-content: space-evenly;">
+                            <button onclick="decrement()"
+                                style="border: none;color: #fff;background-color: #006EFF; padding: 0.6rem;"
+                                id="btn-minus">-</button>
+                            <h4 id="count" style="margin-top: 0.5rem;">0</h4>
+                            <button onclick="increment()"
+                                style="border: none;color: #fff;background-color: #006EFF; padding: 0.6rem;"
+                                id="btn-plus">+</button>
                         </div>
                     </div>
                 </div>
@@ -323,3 +334,22 @@
         </div>
     </div>
 </section>
+
+
+<script>
+
+    function increment() {
+        var num = document.getElementById('count').innerHTML
+        console.log(num);
+        num++;
+        document.getElementById('count').innerHTML = num
+    }
+    function decrement() {
+        var num = document.getElementById('count').innerHTML
+        if (num > 0) {
+            num--;
+        }
+        document.getElementById('count').innerText = num
+    }
+</script>
+{%endblock%}

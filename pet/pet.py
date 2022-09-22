@@ -117,5 +117,21 @@ def Dummy():
 def sidenav():
     return render_template("sidenav.html")
 
+@PET.route("/checkout")
+def checkout():
+    return render_template("checkout.html")
+
+@PET.route('/userdata',methods = ['GET','POST'])
+def Userdata():
+    new_taskk_history = []
+    total_history = list(db.find({},{"name":1,"email":1,"contact":1,"_id":0}))
+    for i in total_history:
+        new_taskk_history.append(i)       
+    return render_template('userdata.html',new_task_history = new_taskk_history)
+
+@PET.route('/Purchased',methods = ['GET','POST'])
+def Purchaseditems():   
+    return render_template('apurchased.html')
+
 if __name__ == "__main__":
     PET.run(debug=True,port=2027)
