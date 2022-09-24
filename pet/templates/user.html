@@ -293,8 +293,10 @@
                         <h4 class="Product_Name">{{re['Product_Name']}}</h4>
                         <p class="card-text">Pedigree dog food is made with Meat and Meat by-products, Vegetables and Vegetable by-products, Vegetable oils, Iodised salt, Essential Vitamins and Minerals, Cereals and Cereal by-products</p>
                     <p class="price"><strong class>Price: {{re['Price']}}</strong></p>
-                        <button class="cart" type="button"><a href="{{ url_for('cart',id = rid)}}">Add to
-                                Cart</a></button></td>
+                    {% set rid = re['_id'] %}
+                    <form action="/cart/rid" method="post">
+                        <button class="cart" type="submit">Add to cart</button></td>
+                    </form>
 
                     </div>
                 </div>
@@ -312,8 +314,9 @@
                         <p class="card-text">Pedigree dog food is made with Meat and Meat by-products, Vegetables and Vegetable by-products, Vegetable oils, Iodised salt, Essential Vitamins and Minerals, Cereals and Cereal by-products
                             </p>
                         <p class="price"><strong>Price: {{r['Price']}}</strong></p>
-                        <button class="cart" type="button"><a href="{{ url_for('cart',id = reid)}}">Add to
-                            Cart</a></button></td>
+                        <form action="/cart/rid" method="post">
+                            <button class="cart" type="submit">Add to cart</button></td>
+                        </form>
                     </div>
                 </div>
             </div>
