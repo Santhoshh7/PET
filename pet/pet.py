@@ -3,6 +3,7 @@ from subprocess import BELOW_NORMAL_PRIORITY_CLASS
 from flask import Flask, render_template, request, jsonify, Response, json, redirect,url_for,flash,session
 from flask_pymongo import PyMongo, ObjectId
 from flask_session import Session
+import re
 
 PET=Flask(__name__)
 PET.config['MONGO_URI']="mongodb://localhost:27017/petapp"
@@ -25,15 +26,20 @@ def home():
 #SIGNUP
 @PET.route("/signup",methods=["POST","GET"])
 def Signup():
-    if request.method=="POST": 
+    if request.method=="POST":
+        name=request.form['username']
+        password=request.form['password']
+        email=request.form['email']
+        contact=request.form['contact'] 
         dist_mail=list(db.find({'email':request.form['email']}))
-        if(dist_mail):
+        if not re.fullmatch(r'\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Z|a-z]{2,}\b', email):
+            flash(f"Please enter a valid email id")
+        elif(dist_mail):
             flash(f'"email already exists please enter a new email"','danger')
+
+        elif not re.fullmatch(r'^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!#%*?&]{8,10}$', password):
+            flash(f"Password should contain 8-10 characters with atleast 1 uppercase letter, lowercase letter, digit, and a special character")
         else:
-            name=request.form['username']
-            password=request.form['password']
-            email=request.form['email']
-            contact=request.form['contact']
             id=db.insert_one({
                 'name':name,
                 'email':email,
@@ -50,18 +56,20 @@ def login():
     if request.method=="POST":
         email=request.form['email']
         password=request.form['password']
-        test=list(db.find({'email':"admin@gmail.com",'password':"admin"},{"_id":0}))
-        check=list(db.find({'email':request.form['email'],'password':request.form['password']},{'_id':0}))
-        if(test):
-            session["email"]=email
-            flash("Welcome Admin")
-            return redirect("/Admin")
-        elif(check):
-            session["email"]=email
-            flash(f"Logged in as: " +email)
-            return redirect("/users")
-        else:
+        test=list(db.find({'email':email,'password':password},{"_id":0}))
+        check=list(db.find({'email':email,'password':password},{'_id':0}))
+        try:
+            if((test[0]['email']=='admin@gmail.com') and (test[0]['password']=='admin')):
+                session["email"]=email
+                flash("Welcome Admin")
+                return redirect("/Admin")
+            elif(list(db.find({'email':request.form['email'],'password':request.form['password']},{'_id':0}))):
+                session["email"]=email
+                flash(f"Logged in as: " +email)
+                return redirect("/users")
+        except:
             flash("INVALID LOGIN")
+            return redirect("/login")
     return render_template("Login.html")
 
 
@@ -75,6 +83,7 @@ def Logout():
 
 @PET.route("/Admin",methods=["GET","POST"])
 def Admin():
+
     return render_template("admin.html")
     
 #CHOOSE ANIMALS
@@ -215,7 +224,7 @@ def dele(id):
 def update(id):
     print(id)
     if request.method=="POST":
-        yy = db1.update_many({'_id':ObjectId(id)},  { "$set": {'Breed':request.form.get('bbreed'),'Expires_in':request.form.get('edate'),'Product_Name':request.form['pname'],'Product_Type':request.form['ptype'],'Product_Id':request.form['pid'],'Price':request.form['price'],'Stock_Count':request.form['stock'],'Discount':request.form['disc']}})
+        yy = db1.update_many({'_id':ObjectId(id)},  { "$set": {'Breed':request.form.get('bbreed'),'Expires_in':request.form.get('edate'),'Product_Name':request.form['pname'],'Product_Type':request.form.get('ptype'),'Product_Id':request.form['pid'],'Price':request.form['price'],'Stock_Count':request.form['stock'],'Discount':request.form['disc']}})
     return redirect(url_for('Inventory'))
 
 #USERS
