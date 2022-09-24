@@ -280,7 +280,7 @@ def cart1():
     return render_template('cart.html')
 
 @PET.route('/Cart/<id>')
-def Cart(id):   
+def cart(id):   
     c = []
     cdata = list(db.find({"_id":ObjectId(id)}))
     for i in cdata:
