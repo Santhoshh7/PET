@@ -286,7 +286,6 @@ def cart(id):
     cdata = list(db.find({"_id":ObjectId(id)}))
     for i in cdata:
         c.append(i)
-    
     return render_template('cart.html',c = c)
 if __name__ == "__main__":
     PET.run(debug=True,port=2027)

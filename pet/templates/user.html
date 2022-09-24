@@ -283,18 +283,19 @@
         <div class="row" style="justify-content: space-evenly;">
             <div class="col-md-4">
                 <div class="card card-01">
-                    <img class="card-img-top" src="https://m.media-amazon.com/images/I/61c-pIm5oRL._SX425_.jpg"
+                    <img class="card-img-top"
+                        src="https://m.media-amazon.com/images/I/61c-pIm5oRL._SX425_.jpg"
                         alt="Card image cap" width="200px">
-
+                    
                     <div class="card-body">
                         <h4 class="Product_Name">{{re['Product_Name']}}</h4>
-                        <p class="card-text">Pedigree dog food is made with Meat and Meat by-products, Vegetables and
-                            Vegetable by-products, Vegetable oils, Iodised salt, Essential Vitamins and Minerals,
-                            Cereals and Cereal by-products</p>
-                        <p class="price"><strong class>Price: {{re['Price']}}</strong></p>
-                        <button class="cart" type="button"><a href="{{ url_for('cart',id = rid)}}">Add to
-                                Cart</a></button></td>
-                        ​
+                        <p class="card-text">Pedigree dog food is made with Meat and Meat by-products, Vegetables and Vegetable by-products, Vegetable oils, Iodised salt, Essential Vitamins and Minerals, Cereals and Cereal by-products</p>
+                    <p class="price"><strong class>Price: {{re['Price']}}</strong></p>
+                    {% set rid = re['_id'] %}
+                    <form action="/cart/rid" method="post">
+                        <button class="cart" type="submit">Add to cart</button></td>
+                    </form>
+
                     </div>
                 </div>
             </div>
@@ -304,17 +305,16 @@
             <div class="col-md-4">
                 <div class="card card-01">
                     <img class="card-img-top"
-                        src="https://assets.onbuy.com/i24/product/1fd08440c39d4deab6a2e339bc1c5100-m10837840/bestoftv-wobble-wag-giggle-ball-squeaky-throw-fetch-interactive-doga-aeura-seen-on-tv.jpg"
+                        src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRq6FcLBUzUQYoylnwfdl1dMTZgQJjyhXhSvo_z4HAwAA&s"
                         alt="Card image cap">
                     <div class="card-body">
                         <h4 class="card-title">{{r['Product_Name']}}</h4>
-                        <p class="card-text">Pedigree dog food is made with Meat and Meat by-products, Vegetables and
-                            Vegetable by-products, Vegetable oils, Iodised salt, Essential Vitamins and Minerals,
-                            Cereals and Cereal by-products
-                        </p>
+                        <p class="card-text">Pedigree dog food is made with Meat and Meat by-products, Vegetables and Vegetable by-products, Vegetable oils, Iodised salt, Essential Vitamins and Minerals, Cereals and Cereal by-products
+                            </p>
                         <p class="price"><strong>Price: {{r['Price']}}</strong></p>
-                        <button class="cart" type="submit"><a href="{{ url_for('cart',id = reid)}}">Add to
-                                Cart</a></button></td>
+                        <form action="/cart/rid" method="post">
+                            <button class="cart" type="submit">Add to cart</button></td>
+                        </form>
                     </div>
                 </div>
             </div>
@@ -322,4 +322,4 @@
         </div>
     </div>
 </section>
-{% endblock %}
+{%endblock%}
