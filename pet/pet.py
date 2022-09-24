@@ -266,6 +266,10 @@ def Purchaseditems():
 def Inven():   
     return render_template('inven.html')
 
+@PET.route('/cart')
+def cart1():
+    return render_template('cart.html')
+
 @PET.route('/Cart/<id>')
 def Cart(id):   
     c = []
