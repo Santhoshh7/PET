@@ -266,8 +266,8 @@ def Purchaseditems():
 def Inven():   
     return render_template('inven.html')
 
-@PET.route('/Cart/<id>')
-def Cart(id):   
+@PET.route('/cart/<id>')
+def cart(id):   
     c = []
     cdata = list(db.find({"_id":ObjectId(id)}))
     for i in cdata:

@@ -295,17 +295,8 @@
                         <p class="card-text">Some quick example text to build on the card title and make up the bulk of
                             the card's content.</p>
                         <p class="price"><strong class>Price: $1</strong></p>
-                        <div class="pill"
-                            style="margin:1rem auto;color: #fff;border-radius: 0.8rem; background-color: #006EFF ;width: 50%;display: flex; align-items: center;justify-content: space-evenly;">
-                            <button onclick="decrement()"
-                                style="border: none;color: #fff;background-color: #006EFF; padding: 0.6rem;"
-                                id="btn-minus">-</button>
-                            <h4 id="count" style="margin-top: 0.5rem;">0</h4>
-                            <button onclick="increment()"
-                                style="border: none;color: #fff;background-color: #006EFF; padding: 0.6rem;"
-                                id="btn-plus">+</button>
-                            <button href ="/Cart" type="submit">Add to cart</button>
-                        </div>
+                        <button class="cart" type="button"><a href="{{ url_for('cart',id=rid)}}">Add to Cart</a></button></td>
+
                     </div>
                 </div>
             </div>
