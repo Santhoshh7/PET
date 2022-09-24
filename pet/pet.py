@@ -230,7 +230,16 @@ def update(id):
 #USERS
 @PET.route("/users",methods=["GET","POST"])
 def Dummy():
-    return render_template("user.html")
+    d = []
+    d1= []
+    data = list(db1.find({'Product_Name': 'Pedigree'}))
+    for i in data:
+        d.append(i)
+    print(d)
+    data1 = list(db1.find({'Product_Name': 'Melamine Decal Bowl'}))
+    for i in data1:
+        d1.append(i)
+    return render_template("user.html",d=d, d1 = d1)
 
 #SIDENAV
 @PET.route("/sidenav",methods=["GET","POST"])
@@ -276,6 +285,7 @@ def Cart(id):
     cdata = list(db.find({"_id":ObjectId(id)}))
     for i in cdata:
         c.append(i)
+    
     return render_template('cart.html',c = c)
 if __name__ == "__main__":
     PET.run(debug=True,port=2027)

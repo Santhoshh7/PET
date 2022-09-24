@@ -250,6 +250,7 @@
         margin-right: -25px;
 
     }
+
     .price {
         margin-left: 68px;
     }
@@ -277,6 +278,8 @@
 {%block body %}
 <h1 class="trending" style="margin-left: 33%; margin-bottom:30px"> TRENDING PRODUCTS</h1>
 
+{% for re in d %}
+                    {% set rid = re['_id'] %}
 <section>
     <div class="container">
         <div class="row" style="justify-content: space-evenly;">
@@ -285,49 +288,39 @@
                     <img class="card-img-top"
                         src="https://images.pexels.com/photos/247599/pexels-photo-247599.jpeg?h=350&auto=compress&cs=tinysrgb"
                         alt="Card image cap">
+                    
                     <div class="card-body">
-                        <h4 class="card-title arsh">Card title</h4>
-                        <p class="card-text">Some quick example text to build on the card title and make up the bulk of
+                    <h4 class="card-title">{{re['Product_Name']}}</h4>
+                    <p class="card-text">Some quick example text to build on the card title and make up the bulk of
                             the card's content.</p>
-                        <p class="price"><strong class>Price: $1</strong></p>
+                    <p class="price"><strong class>Price: {{re['Price']}}</strong></p>
 
-                        <button class="cart" type="button"><a href="{{ url_for('cart1')}}">Add to Cart</a></button></td>
+                        <button class="cart" type="button"><a href="{{ url_for('Cart',id = rid)}}">Add to
+                                Cart</a></button></td>
 
                     </div>
                 </div>
             </div>
+            {%endfor%}
+            {% for r in d1 %}
+            {% set reid = r['_id'] %}
             <div class="col-md-3">
                 <div class="card card-01">
                     <img class="card-img-top"
                         src="https://images.pexels.com/photos/247599/pexels-photo-247599.jpeg?h=350&auto=compress&cs=tinysrgb"
                         alt="Card image cap">
                     <div class="card-body">
-                        <h4 class="card-title">Card title</h4>
+                        <h4 class="card-title">{{r['Product_Name']}}</h4>
                         <p class="card-text">Some quick example text to build on the card title and make up the bulk of
-                            the card's content.</p>
-                        <p class="price"><strong>Price: $1</strong></p>
+                            </p>
+                        <p class="price"><strong>Price: {{r['Price']}}</strong></p>
+                        <button class="cart" type="button"><a href="{{ url_for('Cart',id = reid)}}">Add to
+                            Cart</a></button></td>
                     </div>
                 </div>
             </div>
+            {% endfor %}
         </div>
     </div>
 </section>
-
-
-<script>
-
-    function increment() {
-        var num = document.getElementById('count').innerHTML
-        console.log(num);
-        num++;
-        document.getElementById('count').innerHTML = num
-    }
-    function decrement() {
-        var num = document.getElementById('count').innerHTML
-        if (num > 0) {
-            num--;
-        }
-        document.getElementById('count').innerText = num
-    }
-</script>
 {%endblock%}
