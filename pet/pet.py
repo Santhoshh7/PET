@@ -225,7 +225,7 @@ def dele(id):
 def cdele(id):
     if 'email' in session:
         db2.delete_one({'_id':ObjectId(id)})
-        return render_template('cart.html')
+        return redirect(url_for('cart1'))
 
 #ADMIN UPDATE
 @PET.route("/update/<id>",methods=["POST"])
