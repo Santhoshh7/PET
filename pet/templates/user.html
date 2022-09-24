@@ -283,16 +283,15 @@
 <section>
     <div class="container">
         <div class="row" style="justify-content: space-evenly;">
-            <div class="col-md-3">
+            <div class="col-md-4">
                 <div class="card card-01">
                     <img class="card-img-top"
-                        src="https://images.pexels.com/photos/247599/pexels-photo-247599.jpeg?h=350&auto=compress&cs=tinysrgb"
-                        alt="Card image cap">
+                        src="https://m.media-amazon.com/images/I/61c-pIm5oRL._SX425_.jpg"
+                        alt="Card image cap" width="200px">
                     
                     <div class="card-body">
                         <h4 class="Product_Name">{{re['Product_Name']}}</h4>
-                        <p class="card-text">Some quick example text to build on the card title and make up the bulk of
-                            the card's content.</p>
+                        <p class="card-text">Pedigree dog food is made with Meat and Meat by-products, Vegetables and Vegetable by-products, Vegetable oils, Iodised salt, Essential Vitamins and Minerals, Cereals and Cereal by-products</p>
                     <p class="price"><strong class>Price: {{re['Price']}}</strong></p>
                         <button class="cart" type="button"><a href="{{ url_for('cart',id = rid)}}">Add to
                                 Cart</a></button></td>
@@ -303,14 +302,14 @@
             {%endfor%}
             {% for r in d1 %}
             {% set reid = r['_id'] %}
-            <div class="col-md-3">
+            <div class="col-md-4">
                 <div class="card card-01">
                     <img class="card-img-top"
-                        src="https://images.pexels.com/photos/247599/pexels-photo-247599.jpeg?h=350&auto=compress&cs=tinysrgb"
+                        src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRq6FcLBUzUQYoylnwfdl1dMTZgQJjyhXhSvo_z4HAwAA&s"
                         alt="Card image cap">
                     <div class="card-body">
                         <h4 class="card-title">{{r['Product_Name']}}</h4>
-                        <p class="card-text">Some quick example text to build on the card title and make up the bulk of
+                        <p class="card-text">Pedigree dog food is made with Meat and Meat by-products, Vegetables and Vegetable by-products, Vegetable oils, Iodised salt, Essential Vitamins and Minerals, Cereals and Cereal by-products
                             </p>
                         <p class="price"><strong>Price: {{r['Price']}}</strong></p>
                         <button class="cart" type="button"><a href="{{ url_for('cart',id = reid)}}">Add to
