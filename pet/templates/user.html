@@ -279,7 +279,7 @@
 <h1 class="trending" style="margin-left: 33%; margin-bottom:30px"> TRENDING PRODUCTS</h1>
 
 {% for re in d %}
-                    {% set rid = re['_id'] %}
+{% set rid = re['_id'] %}
 <section>
     <div class="container">
         <div class="row" style="justify-content: space-evenly;">
@@ -290,11 +290,10 @@
                         alt="Card image cap">
                     
                     <div class="card-body">
-                    <h4 class="card-title">{{re['Product_Name']}}</h4>
-                    <p class="card-text">Some quick example text to build on the card title and make up the bulk of
+                        <h4 class="Product_Name">{{re['Product_Name']}}</h4>
+                        <p class="card-text">Some quick example text to build on the card title and make up the bulk of
                             the card's content.</p>
                     <p class="price"><strong class>Price: {{re['Price']}}</strong></p>
-
                         <button class="cart" type="button"><a href="{{ url_for('cart',id = rid)}}">Add to
                                 Cart</a></button></td>
 
