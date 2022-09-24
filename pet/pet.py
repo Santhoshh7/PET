@@ -252,11 +252,11 @@ def checkout():
 
 @PET.route('/userdata',methods = ['GET','POST'])
 def Userdata():
-    new_taskk_history = []
-    total_history = list(db.find({},{"name":1,"email":1,"contact":1,"_id":0}))
-    for i in total_history:
-        new_taskk_history.append(i)       
-    return render_template('userdata.html',new_task_history = new_taskk_history)
+    udet = []
+    data = list(db.find({'Product_Name':'Wobble Wag Giggle Ball'}))
+    for i in data:
+        udet.append(i)       
+    return render_template('userdata.html',udet=udet)
 
 @PET.route('/Purchased',methods = ['GET','POST'])
 def Purchaseditems():   
@@ -266,8 +266,8 @@ def Purchaseditems():
 def Inven():   
     return render_template('inven.html')
 
-@PET.route('/Cart/<id>')
-def Cart(id):   
+@PET.route('/cart/<id>')
+def cart(id):   
     c = []
     cdata = list(db.find({"_id":ObjectId(id)}))
     for i in cdata:
