@@ -52,14 +52,14 @@ def login():
         password=request.form['password']
         test=list(db.find({'email':"admin@gmail.com",'password':"admin"},{"_id":0}))
         check=list(db.find({'email':request.form['email'],'password':request.form['password']},{'_id':0}))
-        if(test):
-            session["email"]=email
-            flash("Welcome Admin")
-            return redirect("/Admin")
-        elif(check):
+        if(check):
             session["email"]=email
             flash(f"Logged in as: " +email)
             return redirect("/users")
+        elif(test):
+            session["email"]=email
+            flash(f"Logged in as: " +email)
+            return redirect("/Admin")
         else:
             flash("INVALID LOGIN")
     return render_template("Login.html")
@@ -139,7 +139,7 @@ def Cat():
 def Parrot():
     
     if request.method=="POST":
-        Breed=request.form.get('bbreed')
+        Breed=request.form.get('breed')
         Product_Name=request.form['pname']
         Product_Type=request.form.get('ptype')
         Product_Id=request.form['pid']
@@ -215,7 +215,7 @@ def dele(id):
 def update(id):
     print(id)
     if request.method=="POST":
-        yy = db1.update_many({'_id':ObjectId(id)},  { "$set": {'Breed':request.form.get('bbreed'),'Expires_in':request.form.get('edate'),'Product_Name':request.form['pname'],'Product_Type':request.form['ptype'],'Product_Id':request.form['pid'],'Price':request.form['price'],'Stock_Count':request.form['stock'],'Discount':request.form['disc']}})
+        yy = db1.update_many({'_id':ObjectId(id)},  { "$set": {'Breed':request.form.get('breed'),'Expires_in':request.form.get('edate'),'Product_Name':request.form['pname'],'Product_Type':request.form['ptype'],'Product_Id':request.form['pid'],'Price':request.form['price'],'Stock_Count':request.form['stock'],'Discount':request.form['disc']}})
     return redirect(url_for('Inventory'))
 
 #USERS
@@ -227,6 +227,15 @@ def Dummy():
 @PET.route("/sidenav",methods=["GET","POST"])
 def sidenav():
     return render_template("sidenav.html")
+
+#SIDENAV
+@PET.route("/navbar",methods=["GET","POST"])
+def navbar():
+    return render_template("navbar.html")
+
+@PET.route('/dummy')
+def dummy():
+    return render_template('dummynav.html')
 
 @PET.route("/checkout")
 def checkout():
@@ -244,5 +253,16 @@ def Userdata():
 def Purchaseditems():   
     return render_template('apurchased.html')
 
+@PET.route('/inven',methods = ['GET','POST'])
+def Inven():   
+    return render_template('inven.html')
+
+@PET.route('/Cart/<id>')
+def Cart(id):   
+    c = []
+    cdata = list(db.find({"_id":ObjectId(id)}))
+    for i in cdata:
+        c.append(i)
+    return render_template('cart.html',c = c)
 if __name__ == "__main__":
     PET.run(debug=True,port=2027)

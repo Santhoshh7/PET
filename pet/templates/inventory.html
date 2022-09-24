@@ -113,8 +113,9 @@ text-align: center;
           {% set animal=re['Animal'] %}
 
           {% if animal == "Dog" %}
-          <select class="one" name="dbreed" required id="dbreed">
-            <option value="none" selected disabled hidden>{{re['Breed']}}</option>
+          
+          <select class="one" name="breed" value="{{re['Breed']}}" required id="dbreed">{{re['Breed']}}
+            <option value="{{re['Breed']}}">{{re['Breed']}}</option>
             <option value="beagle">Beagle</option>
             <option value="gretriver">Golden Retriver</option>
             <option value="stzu">Shih Tzu</option>
@@ -134,8 +135,7 @@ text-align: center;
 
           {% elif animal== "Bird" %}
           <label for="Breed"><b>Breed</label></b></label>
-          <select class="one" name="bbreed" required id="bbreed">
-            <option value="none" selected disabled hidden>Select Breed</option>
+          <select class="one" value="{{re['Product_Id']}}" name="bbreed" required id="bbreed">
             <option value="parrots">Parrots</option>
             <option value="cockateil">cockateil</option>
             <option value="budgies">Budgies</option>
@@ -154,8 +154,8 @@ text-align: center;
         </td>
         <td><input type="text" class="one" value="{{re['Product_Id']}}" name="pid">
         </td>
-        <td> <select name="ptype" required id="ptype">
-            <option value="none" selected disabled hidden>{{re['Product_Type']}}</option>
+        <td><select name="ptype" required id="ptype" value="{{re['Product_Type']}}">
+            <option value="{{re['Product_Type']}}">{{re['Product_Type']}}</option>
             <option value="Toy">Toy</option>
             <option value="Food">Food</option>
             <option value="Health_Care">Health_Care</option>
