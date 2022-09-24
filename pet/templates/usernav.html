@@ -41,6 +41,7 @@
 
   .nav {
     padding: 0.4em;
+    z-index: 2;
   }
 
   #logout {
@@ -142,6 +143,7 @@
     <div class="right">
       <!-- <p><a href="/login">Login</a></p> -->
       <a href="/logout" class="btn" style="margin-right:30px;" id="logout">Log Out</a>
+
       <button class="cart" type="button"><a class ="cart-link" href="{{ url_for('cart1')}}"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-cart"
         viewBox="0 0 16 16">
         <path

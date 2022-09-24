@@ -229,14 +229,14 @@ def update(id):
 
 #USERS
 @PET.route("/users",methods=["GET","POST"])
-def Dummy():
+def users():
     d = []
     d1= []
     data = list(db1.find({'Product_Name': 'Pedigree'}))
     for i in data:
         d.append(i)
     print(d)
-    data1 = list(db1.find({'Product_Name': 'Melamine Decal Bowl'}))
+    data1 = list(db1.find({'Product_Name': 'Wobble Wag Giggle Ball'}))
     for i in data1:
         d1.append(i)
     return render_template("user.html",d=d, d1 = d1)
