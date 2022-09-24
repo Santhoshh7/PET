@@ -286,7 +286,9 @@ def Inven():
 @PET.route('/usernav')
 def usernav():
     return render_template('usernav.html')
-@PET.route('/cart')
+
+
+@PET.route('/cart1',methods = ['GET','POST'])
 def cart1():
     c1=[]
     if 'email' in session:
@@ -307,16 +309,14 @@ def cart(id):
         id=db2.insert_one({
             'cid': ObjectId(id),
             'Animal': c[0]['Animal'],
+            'Breed':c[0]['Breed'],
             'Product_Name': c[0]['Product_Name'],
             'Product_Type': c[0]['Product_Type'],
             'Price':c[0]['Price'],
             'Discount':c[0]['Discount'],
             'count':1
         })
-        data=list(db2.find({}))
-        print(data)
-        for i in data:
-            c1.append(i)  
-    return render_template('cart.html',c1=c1)
+    return redirect(url_for('cart1'))
+
 if __name__ == "__main__":
     PET.run(debug=True,port=2027)
