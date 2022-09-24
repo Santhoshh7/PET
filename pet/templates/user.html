@@ -28,7 +28,7 @@
         position: absolute;
         width: 110%;
         height: 100%;
-        background-color: #fff;
+        background-color: fff;
         filter: blur(10px);
         z-index: 0;
         transform: scale(2);
@@ -246,10 +246,9 @@
         justify-content: center;
         margin-bottom: -27px;
         font-size: 1.6rem;
-        margin-right: -25px;  ​
-    }
+        margin-right: -25px;  }
 
-    ​ .price {
+     .price {
         margin-left: 68px;
     }
 
@@ -291,8 +290,8 @@
                         <h4 class="Product_Name">{{re['Product_Name']}}</h4>
                         <p class="card-text">Pedigree dog food is made with Meat and Meat by-products, Vegetables and Vegetable by-products, Vegetable oils, Iodised salt, Essential Vitamins and Minerals, Cereals and Cereal by-products</p>
                     <p class="price"><strong class>Price: {{re['Price']}}</strong></p>
-                    {% set rid = re['_id'] %}
-                    <form action="/cart/rid" method="post">
+        
+                    <form action="/cart/{{re['_id']}}" method="post">
                         <button class="cart" type="submit">Add to cart</button></td>
                     </form>
 
@@ -312,9 +311,10 @@
                         <p class="card-text">Pedigree dog food is made with Meat and Meat by-products, Vegetables and Vegetable by-products, Vegetable oils, Iodised salt, Essential Vitamins and Minerals, Cereals and Cereal by-products
                             </p>
                         <p class="price"><strong>Price: {{r['Price']}}</strong></p>
-                        <form action="/cart/rid" method="post">
+                        <form action="/cart/{{r['_id']}}" method="post">
                             <button class="cart" type="submit">Add to cart</button></td>
                         </form>
+    
                     </div>
                 </div>
             </div>

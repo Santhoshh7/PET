@@ -15,7 +15,8 @@ sessionv=Session(PET)
 
 db=mongo.db.users
 db1=mongo.db.animals
-db2=mongo.db.sales
+db2=mongo.db.cart
+db3=mongo.db.payments
 
 
 #HOME
@@ -219,6 +220,13 @@ def dele(id):
         db1.delete_one({'_id':ObjectId(id)})
     return redirect(url_for('Inventory'))
 
+#CART DELETE   
+@PET.route("/cdelete/<id>",methods=["GET","POST"])
+def cdele(id):
+    if 'email' in session:
+        db2.delete_one({'_id':ObjectId(id)})
+        return render_template('cart.html')
+
 #ADMIN UPDATE
 @PET.route("/update/<id>",methods=["POST"])
 def update(id):
@@ -278,14 +286,35 @@ def Inven():
 
 @PET.route('/cart')
 def cart1():
-    return render_template('cart.html')
+    c1=[]
+    if 'email' in session:
+        data=list(db2.find({}))
+        for i in data:
+            c1.append(i) 
+    return render_template('cart.html',c1=c1)
 
-@PET.route('/cart/<id>')
-def cart(id):   
-    c = []
-    cdata = list(db.find({"_id":ObjectId(id)}))
-    for i in cdata:
-        c.append(i)
-    return render_template('cart.html',c = c)
+@PET.route('/cart/<id>',methods = ['GET','POST'])
+def cart(id):
+    c=[]
+    c1=[]
+    if 'email' in session:
+        cdata = list(db1.find({"_id":ObjectId(id)}))
+        for i in cdata:
+            c.append(i)
+        print(c)
+        id=db2.insert_one({
+            'cid': ObjectId(id),
+            'Animal': c[0]['Animal'],
+            'Product_Name': c[0]['Product_Name'],
+            'Product_Type': c[0]['Product_Type'],
+            'Price':c[0]['Price'],
+            'Discount':c[0]['Discount'],
+            'count':1
+        })
+        data=list(db2.find({}))
+        print(data)
+        for i in data:
+            c1.append(i)  
+    return render_template('cart.html',c1=c1)
 if __name__ == "__main__":
     PET.run(debug=True,port=2027)

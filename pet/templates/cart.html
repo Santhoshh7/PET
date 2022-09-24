@@ -1,12 +1,145 @@
-<!DOCTYPE html>
-<html lang="en">
+<html>
+    <style>
+
+  .container{
+    background-color: rgb(127, 154, 156);
+    width: 400px;
+    height: 400px;
+    margin-top: 110px;
+    margin-left: 420px;
+    padding-top: 20px;
+  }
+  h1 {
+  text-align: center;
+        }
+        h2 {
+  text-align: center;
+        }
+
+div{
+    text-align: center;
+}
+li{
+   list-style: none;
+}
+
+  </style>
+    <body>
+      <nav class="navbar navbar-default">
+        <div class="container-fluid">
+          <!DOCTYPE html>
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cart</title>
+<style>
+ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  background-color: rgb(207, 160, 90);
+}
+
+li {
+  float: left;
+}
+
+li a {
+  display: block;
+  color: white;
+  text-align: center;
+  padding: 14px 100px;
+  text-decoration: none;
+}
+
+li a:hover {
+  background-color: #111;
+}
+</style>
 </head>
 <body>
-    <h1>This is carts page</h1>
+
+<ul>
+  <li><a class="active" href="/home">Home</a></li>
+  <li><a href="/Renter">Renter</a></li>
+  <li><a href="/cart">Refresh</a></li>
+  <li><a href="/Logout">logout</a></li>
+
+</ul>
+
 </body>
+
+
+<html>
+    <style>
+        h1 {
+  text-align: center;
+}
+th{
+  background-color: rgb(137, 192, 192);
+}
+td{
+  background-color: rgb(240, 219, 231);
+  align-items: center;
+  text-align: center;
+
+}
+button a{
+  text-decoration: none;
+  color:black;
+}
+.del{
+  background-color: red;
+  border: none;
+  width: 70px;
+  height: 25px;
+  border-radius: 9px;
+}
+.up{
+  background-color: blue;
+}
+  </style>
+    <body>
+        <form action="/status"></form>
+        {% block body %} 
+        <table border="1" class="center"></h3>
+            <tr>
+              <th> Animal </th>
+              <th> Breed </th>
+              <th> Product Name </th>
+              <th> Product Type  </th>
+              <th>Price </th>
+              <th> Count</th>
+              <th> Discount </th>
+
+              <th> Action</th>
+              
+              
+            </tr>
+            <br>
+            {% for re in c1 %}
+            <tr>
+        
+                <td>{{re['Animal']}}</td>
+                <td>{{re['Breed']}}</td>
+                <td>{{re['Product_Name']}}</td>
+                <td>{{re['Product_Type']}}</td>
+                <td> {{re['Price']}}</td>
+                <td>{{re['Count']}}</td>
+                 {% set cid = re['_id'] %}
+                 <td><button class="del" type="button"><a  href="{{ url_for('cdele',id=cid)}}">Delete</a></button></td>
+                 
+                
+            </tr>
+          
+        
+            {% endfor %}
+        
+          {% endblock %}
+          <br>
+        </div>
+        </table>
+        
+
+        
+    </body>
 </html>
