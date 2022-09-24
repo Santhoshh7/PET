@@ -278,6 +278,8 @@
 {%block body %}
 <h1 class="trending" style="margin-left: 33%; margin-bottom:30px"> TRENDING PRODUCTS</h1>
 
+{% for re in d %}
+                    {% set rid = re['_id'] %}
 <section>
     {% for re in c %}
     <div class="container">
@@ -287,6 +289,7 @@
                     <img class="card-img-top"
                         src="https://images.pexels.com/photos/247599/pexels-photo-247599.jpeg?h=350&auto=compress&cs=tinysrgb"
                         alt="Card image cap">
+                    
                     <div class="card-body">
                         <h4 class="Product_Name">{{re['Product_Name']}}</h4>
                         <p class="card-text">Some quick example text to build on the card title and make up the bulk of
@@ -299,23 +302,37 @@
                     </div>
                 </div>
             </div>
+            {%endfor%}
+            {% for r in d1 %}
+            {% set reid = r['_id'] %}
             <div class="col-md-3">
                 <div class="card card-01">
                     <img class="card-img-top"
                         src="https://images.pexels.com/photos/247599/pexels-photo-247599.jpeg?h=350&auto=compress&cs=tinysrgb"
                         alt="Card image cap">
                     <div class="card-body">
-                        <h4 class="card-title">Card title</h4>
+                        <h4 class="card-title">{{r['Product_Name']}}</h4>
                         <p class="card-text">Some quick example text to build on the card title and make up the bulk of
+<<<<<<< HEAD
                             the card's content.</p>
                         <p class="price"><strong>Price: {{re['price']}}</strong></p>
+=======
+                            </p>
+                        <p class="price"><strong>Price: {{r['Price']}}</strong></p>
+                        <button class="cart" type="button"><a href="{{ url_for('Cart',id = reid)}}">Add to
+                            Cart</a></button></td>
+>>>>>>> 330ed82410c849b6b83534ce9e09914d86ff2b75
                     </div>
                 </div>
             </div>
+            {% endfor %}
         </div>
     </div>
 </section>
+<<<<<<< HEAD
 
 
 {% endfor %}
+=======
+>>>>>>> 330ed82410c849b6b83534ce9e09914d86ff2b75
 {%endblock%}
