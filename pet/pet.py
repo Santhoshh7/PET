@@ -244,7 +244,7 @@ def users():
     for i in data:
         d.append(i)
     print(d)
-    data1 = list(db1.find({'Product_Name': 'Wobble Wag Giggle Ball'}))
+    data1 = list(db1.find({'Product_Name': 'Melamine Decal Bowl'}))
     for i in data1:
         d1.append(i)
     return render_template("user.html",d=d, d1 = d1)
@@ -270,7 +270,7 @@ def checkout():
 @PET.route('/userdata',methods = ['GET','POST'])
 def Userdata():
     udet = []
-    data = list(db.find({'Product_Name':'Wobble Wag Giggle Ball'}))
+    data = list(db.find({'Product_Name':'Melamine Decal Bowl'}))
     for i in data:
         udet.append(i)       
     return render_template('userdata.html',udet=udet)
@@ -283,7 +283,9 @@ def Purchaseditems():
 def Inven():   
     return render_template('inven.html')
 
-
+@PET.route('/usernav')
+def usernav():
+    return render_template('usernav.html')
 @PET.route('/cart')
 def cart1():
     c1=[]
