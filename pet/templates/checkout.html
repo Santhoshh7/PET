@@ -1,9 +1,10 @@
 {%include 'navbar.html' %}
 <style>
-    nav{
+    nav {
         width: 100%;
         z-index: 2;
     }
+
     :root {
         --color-background: #fae3ea;
         --color-primary: #fc8080;
@@ -22,12 +23,12 @@
     }
 
     body {
-    margin : 0;
-    padding : 0;
-    font-family : sans-serif;
-    background-image : url("static/images/signup_bg.jpg");
-    background-size : cover;
-    background-position : center;
+        margin: 0;
+        padding: 0;
+        font-family: sans-serif;
+        background-image: url("static/images/signup_bg.jpg");
+        background-size: cover;
+        background-position: center;
     }
 
     address {
@@ -187,32 +188,35 @@
         margin-top: 50px;
         margin-bottom: 70px;
     }
-    .go_back{
+
+    .go_back {
         margin-left: 10%;
         margin-top: 3%;
     }
-    .go_back a{
+
+    .go_back a {
         text-decoration: none;
         color: #00141d;
     }
 </style>
 {%block body %}
-<button style="color:#00141d;background-color: #fc8080;" class="go_back btn btn-success float-left" type="button"><a href="/"> < Back</a> </button></h2>
+
+<button style="color:#00141d;background-color: #fc8080;" class="go_back btn btn-success float-left" type="button"><a
+        href="/">
+        < Back</a> </button></h2>
 <div class="iphone">
     <header class="header">
         <h1 style="color: white;">Checkout</h1>
     </header>
 
-    <form action="https://httpbin.org/post" class="form" method="POST">
+    <form action="/check" class="form" method="POST">
         <div>
-            <h2 style="color: white;">Address</h2>
 
+            <h2 style="color: white;">Address</h2>
             <div class="card">
-                <address>
-                    Adam Johnson<br />
-                    403 Oakland Ave Street, A city, Florida, 32104,<br />
-                    United States of America
-                </address>
+
+
+
             </div>
         </div>
 
@@ -242,40 +246,46 @@
                 </div>
             </div>
         </fieldset>
-
         <div>
+            
             <h2 style="color: white;">Shopping Bill</h2>
 
             <table>
                 <tbody>
                     <tr>
                         <td>Shipping fee</td>
-                        <td align="right">$5.43</td>
+                        <td align="right">50</td>
                     </tr>
                     <tr>
-                        <td>Discount 10%</td>
-                        <td align="right">-$1.89</td>
+                        <td>Discount</td>
+                        <td align="right">0</td>
                     </tr>
                     <tr>
-                        <td>Price Total</td>
-                        <td align="right">$84.82</td>
+                        <td>Total Price </td>
+                        <td align="right">{{sum[0]['TotalPrice']}}</td>
+
                     </tr>
                 </tbody>
                 <tfoot>
                     <tr>
                         <td style="color: white;">Total</td>
-                        <td style="color: white;" align="right">$88.36</td>
+                        <td style="color: white;" align="right">{{sum[0]['TotalPrice'] +50}}</td>
                     </tr>
+                    
                 </tfoot>
+                
             </table>
         </div>
-
+        
         <div class="buynow">
             <button class="button button--full" type="submit"><svg class="icon">
                     <use xlink:href="#icon-shopping-bag" />
                 </svg>Buy Now</button>
+                
         </div>
+        
     </form>
+   
 </div>
 
 <svg xmlns="http://www.w3.org/2000/svg" style="display: none">
@@ -420,4 +430,5 @@
         </g>
     </symbol>
 </svg>
+
 {%endblock%}

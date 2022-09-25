@@ -19,6 +19,7 @@ db2=mongo.db.cart
 db3=mongo.db.payments
 
 
+
 #HOME
 @PET.route("/",methods=["GET","POST"])
 def home():
@@ -32,6 +33,9 @@ def Signup():
         password=request.form['password']
         email=request.form['email']
         contact=request.form['contact'] 
+        address=request.form['address'] 
+
+        
         dist_mail=list(db.find({'email':request.form['email']}))
         if not re.fullmatch(r'\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Z|a-z]{2,}\b', email):
             flash(f"Please enter a valid email id")
@@ -45,7 +49,8 @@ def Signup():
                 'name':name,
                 'email':email,
                 'password':password,
-                'contact':contact
+                'contact':contact,
+                'address':address
             })
             flash("Signup Succesful")
             return redirect("/")
@@ -116,6 +121,7 @@ def Dog():
             'Stock_Count':Stock_Count,
             'Discount':Discount})
         flash("Data added Successfully")
+        # x=db.update_many({}, [ {"$set":{ "price" : {"$toInt": "$price"}}} ], {"multi":True})
     return render_template("dadd.html")
 
 #CAT ADD
@@ -230,7 +236,6 @@ def cdele(id):
 #ADMIN UPDATE
 @PET.route("/update/<id>",methods=["POST"])
 def update(id):
-    print(id)
     if request.method=="POST":
         yy = db1.update_many({'_id':ObjectId(id)},  { "$set": {'Breed':request.form.get('breed'),'Expires_in':request.form.get('edate'),'Product_Name':request.form['pname'],'Product_Type':request.form['ptype'],'Product_Id':request.form['pid'],'Price':request.form['price'],'Stock_Count':request.form['stock'],'Discount':request.form['disc']}})
     return redirect(url_for('Inventory'))
@@ -243,7 +248,6 @@ def users():
     data = list(db1.find({'Product_Name': 'Pedigree'}))
     for i in data:
         d.append(i)
-    print(d)
     data1 = list(db1.find({'Product_Name': 'Melamine Decal Bowl'}))
     for i in data1:
         d1.append(i)
@@ -338,7 +342,30 @@ def bprod():
 @PET.route('/usernav')
 def usernav():
     return render_template('usernav.html')
-@PET.route('/mcart',methods = ['GET','POST'])
+
+@PET.route('/orders',methods = ['GET','POST'])
+def orders():
+    pass
+    return render_template('myorders.html')
+
+@PET.route('/check',methods = ['GET','POST'])
+def check():
+    c2=[]
+    if 'email' in session:
+        bemail=session["email"] 
+        data=list(db2.find({'bemail':bemail}))
+        sum=list(db2.aggregate([{"$group":{"_id": 0,"TotalPrice": { "$sum": "$Price"}}}]))
+        for i in data:
+            c2.append(i)
+        id=db3.insert_one({
+            'bemail':bemail,
+            'pid': 1,
+            'Discount':0,
+            'Total_Price':sum[0]["TotalPrice"]})
+        # summ=list(db3.find({{}},{'_id':0,'Total_Price':1}))
+    return render_template('checkout.html',c2=c2,sum=sum)
+
+@PET.route('/cart1',methods = ['GET','POST'])
 def cart1():
     c1=[]
     if 'email' in session:
@@ -355,24 +382,51 @@ def shopping():
 def cart(id):
     c=[]
     c1=[]
+    bemail=session["email"]
     if 'email' in session:
         cdata = list(db1.find({"_id":ObjectId(id)}))
+        
         for i in cdata:
             c.append(i)
-        print(c)
+        c1data = list(db1.find({"_id":ObjectId(id)},{"Product_Id":1}))
+        pcid=c1data[0]["Product_Id"]
+        ddata = list(db2.find({},{"_id":0,"Product_Id":1}))
+        print(ddata)
+        if(ddata!=[]):
+            for i in ddata:
+                for j in i.values():
+                    print(j)
+                    print(pcid)
+                    if j==pcid:
+                        flash("Product already added to cart")
+                        return redirect(url_for('cart1'))
+            else:
+                id=db2.insert_one({
+                        'bemail':bemail,
+                        'cid': ObjectId(id),
+                        'Animal': c[0]['Animal'],
+                        'Breed':c[0]['Breed'],
+                        'Product_Id': c[0]['Product_Id'],
+                        'Product_Name': c[0]['Product_Name'],
+                        'Product_Type': c[0]['Product_Type'],
+                        'Price':c[0]['Price'],
+                        'Discount':c[0]['Discount'],
+                        'count':1
+                     })
         id=db2.insert_one({
-            'cid': ObjectId(id),
-            'Animal': c[0]['Animal'],
-            'Product_Name': c[0]['Product_Name'],
-            'Product_Type': c[0]['Product_Type'],
-            'Price':c[0]['Price'],
-            'Discount':c[0]['Discount'],
-            'count':1
-        })
-        data=list(db2.find({}))
-        print(data)
-        for i in data:
-            c1.append(i)  
-    return render_template('cart.html',c1=c1)
+                        'bemail':bemail,
+                        'cid': ObjectId(id),
+                        'Animal': c[0]['Animal'],
+                        'Breed':c[0]['Breed'],
+                        'Product_Id': c[0]['Product_Id'],
+                        'Product_Name': c[0]['Product_Name'],
+                        'Product_Type': c[0]['Product_Type'],
+                        'Price':c[0]['Price'],
+                        'Discount':c[0]['Discount'],
+                        'count':1
+                     })
+        db2.update_many({}, [ {"$set":{ "Price" : {"$toInt": "$Price"}}} ],True)
+    return redirect(url_for('cart1'))
+
 if __name__ == "__main__":
     PET.run(debug=True,port=2027)

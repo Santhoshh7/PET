@@ -123,6 +123,13 @@
 </style>
 {% block body %} 
 <div class="container">
+  {% with messages = get_flashed_messages() %}
+  {% if messages %}
+  {% for message in messages %}
+  {{ message }}
+  {% endfor %}
+  {% endif %}
+  {% endwith %}
   <div class="row">
     <div class="col md-12">
       <div class="jumbotron p-3">
@@ -170,12 +177,15 @@
                       onclick="return confirm('Are you sure you want to delete ?')">Remove</a>
                   </td>
               </tr>
-            
+              
           
               {% endfor %}
+              <button class="del" type="submit"><a  href="{{ url_for('check')}}">Check Out</a></button>
               {% endblock %}
             <br>
+            
           </div>
+          
           </table>  
       </div>
     </div>
