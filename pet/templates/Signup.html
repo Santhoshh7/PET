@@ -1,49 +1,43 @@
-{% include 'navbar.html' %}
+{%include 'navbar.html' %}
+{% block content %}
 <html>
-<style>
-    h1 {
-        text-align: center;
-    }
-
-    h2 {
-        text-align: center;
-        color: red;
-    }
-
-    h3 {
-        text-align: center;
-    }
-
-
-    p {
-        text-align: center;
-    }
-
-    div {
-        text-align: center;
-    }
-
-    #email {
-        margin-left: 2em;
-    }
-
-    #contact {
-        margin-left: .7em;
-    }
-
-    button:hover {
-        cursor: pointer;
-    }
-</style>
-
-<head>
-    <h1> NIP-PET </h1>
-    <h3> Signup </h3>
-</head>
-
-
 <body>
+<head>
+<link rel="stylesheet" href="{{url_for('static',filename='css/style.css')}}">
+</head>
+<style>
+  body {
+    font-family: sans-serif;
+    background-size: cover;
+    background-position: center;
+    background-image: url("static/images/signup1.webp");
+  }
 
+  .image {
+    width: 40%;
+  }
+
+  .Dog-form {
+    margin-top: 2rem;
+    color: white;
+  }
+  .text{
+    color: white;
+  }
+  .signup{
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;;
+  }
+  .abcd{
+    color:white;
+    margin-top: 20px;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+  }
+</style>
+<body>
+  <div class="Dog-form">
+    <img class="image" style="margin-bottom: 30px;" src="{{url_for('static',filename='images/sign.jpg')}}" alt="MSM_logo" width="120px"
+      height="120px">
+    <h1 class="signup" style="color:white;margin-bottom: 30px;">SIGNUP</h1>
     <form actions="/signup" method="post">
         <h2>
             {% with messages = get_flashed_messages() %}
@@ -67,13 +61,13 @@
             <br>
             <label for="number"><b>Contact </b></label>
             <input type="text" placeholder="Enter Contact num" name="contact" required id="contact"><br>
-            <br>
             </select><br>
-            <br>
-            <button type="submit">Sign up</button>
-            <button type="button" onclick="location.href='http://127.0.0.1:2027'">BACK</button>
+            <button class="login-btn"type="submit">Sign up</button>
+            <button class="login-btn"type="button" onclick="location.href='http://127.0.0.1:2027'">BACK</button>
+            <p class="abcd" style="color:white;margin-top: 20px;">Do you have an account?
+            <a class="link" href="login">Login</a></p>
         </div>
     </form>
 </body>
-
 </html>
+{% endblock %}

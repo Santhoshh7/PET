@@ -155,7 +155,6 @@
         /* Chrome10-25,Safari5.1-6 */
         background: linear-gradient(to bottom, rgba(26, 96, 111, 0) 0%, rgba(26, 96, 111, 0) 1%, rgba(24, 87, 104, 0.91) 31%, rgba(21, 65, 89, 0.91) 100%);
         /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
-        filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#001a606f', endColorstr='#e8154159', GradientType=0);
     }
 
     ​ .card-01.height-fix .fa {
@@ -163,9 +162,6 @@
         font-size: 22px;
         margin-right: 18px;
     }
-
-    ​
-
     /*flipper-card*/
     .card-flipper {
         position: relative;
@@ -273,17 +269,17 @@
 <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"
     integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
 {%block body %}
-<h1 class="trending" style="margin-left: 33%; margin-bottom:30px"> TRENDING PRODUCTS</h1>
-{% for re in d %}
-{% set rid = re['_id'] %}
+<h1 class="trending" style="margin-left: 33%; margin-bottom:30px"> DOG PRODUCTS</h1>
 <section>
     <div class="container">
-        <div class="row" style="justify-content: space-evenly;">
-            <div class="col-md-4">
+        {% for re in d %}
+        {% set rid = re['_id'] %}
+        <div class="row">
+            <div class="col-lg-4">
                 <div class="card card-01">
                     <img class="card-img-top"
                         src="https://m.media-amazon.com/images/I/61c-pIm5oRL._SX425_.jpg"
-                        alt="Card image cap" width="200px">
+                        alt="Card image cap">
                     <div class="card-body">
                         <h4 class="Product_Name">{{re['Product_Name']}}</h4>
                         <p class="card-text">Pedigree dog food is made with Meat and Meat by-products, Vegetables and Vegetable by-products, Vegetable oils, Iodised salt, Essential Vitamins and Minerals, Cereals and Cereal by-products</p>
@@ -294,28 +290,8 @@
                     </div>
                 </div>
             </div>
-            {%endfor%}
-            {% for r in d1 %}
-            {% set reid = r['_id'] %}
-            <div class="col-md-4">
-                <div class="card card-01">
-                    <img class="card-img-top"
-                        src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRq6FcLBUzUQYoylnwfdl1dMTZgQJjyhXhSvo_z4HAwAA&s"
-                        alt="Card image cap">
-                    <div class="card-body">
-                        <h4 class="card-title">{{r['Product_Name']}}</h4>
-                        <p class="card-text">Pedigree dog food is made with Meat and Meat by-products, Vegetables and Vegetable by-products, Vegetable oils, Iodised salt, Essential Vitamins and Minerals, Cereals and Cereal by-products
-                            </p>
-                        <p class="price"><strong>Price: {{r['Price']}}</strong></p>
-                        <form action="/cart/{{r['_id']}}" method="post">
-                            <button class="cart" type="submit">Add to cart</button></td>
-                        </form>
-    
-                    </div>
-                </div>
-            </div>
-            {% endfor %}
         </div>
+        {%endfor%}
     </div>
 </section>
 {%endblock%}

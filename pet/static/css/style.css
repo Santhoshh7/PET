@@ -1,0 +1,94 @@
+body
+{
+    margin : 0;
+    padding : 0;
+    font-family : sans-serif;
+    background-image : url("static/images/signup_bg.jpg");
+    background-size : cover;
+    background-position : center;
+
+}
+.nav{
+    z-index: 2;
+}
+.Dog-form
+{
+    width: 27%;
+    box-shadow : 0 0 3px 0 rgba(0,0,0,0.3);
+    background : #fff;
+    padding : 10px;
+    margin : 8% auto 0;
+    background: rgba(255, 255, 255, 0.05);
+    box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+    backdrop-filter: blur(58px);
+    -webkit-backdrop-filter: blur(8px);
+    border-radius: 10px;
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    text-align : center;
+}
+.Login-form h1
+{
+    color : #1c8adb;
+    margin-bottom : 20px
+}
+.input-box
+{
+    margin : 10px 0;
+    width : 90%;
+    border : 1px solid #999;
+    outline : none; 
+    border-radius: 10px;
+    padding: 0.7rem;
+    margin: 10px 0;
+    width: 90%;
+    font-size: 0.7rem;
+}
+.img
+{
+    width :20px;
+}
+button
+{
+    color : #fff;
+    width : 70%;
+    padding : 0.7rem;
+    border-radius : 20px;
+    font-size : 15px;
+    margin : 10px 0;
+    border : none;
+    outline : none;
+    cursor : pointer;
+}
+.login-btn
+{
+    border: 1px solid #1c8adb;
+    background-color: #1c8adb;
+    transition: all ease-in-out;
+    width: 30%;
+    border-radius: 10px;
+    padding: 0.7rem;
+}
+.login-btn:hover{
+    background-color: white;
+    color: #1c8adb;
+}
+
+.link{
+    border: 1px solid #1c8adb;
+    padding: 0.5rem 0.7rem;
+    color: rgba(255, 255, 255, 0.806);
+    text-decoration: none;
+    cursor: pointer;
+    border-radius: 10px;
+    background-color: #1c8adb;
+    margin-left: 0.5rem;
+}
+
+.link:hover{
+    color: #1c8adb;
+    background-color: #fff;
+}
+
+.image{
+    border-radius: 50%;
+}

@@ -1,9 +1,35 @@
+{%include 'adminnav.html' %}
+{% block content %}
 <html>
-
-
 <body>
+<head>
+<link rel="stylesheet" href="{{url_for('static',filename='css/style.css')}}">
+</head>
+<style>
+  body {
+    font-family: sans-serif;
+    background-size: cover;
+    background-position: center;
+    background-image: url("static/images/homebg.jpg");
+  }
 
-    <!-- select breed -->
+  .image {
+    width: 40%;
+  }
+
+  .Dog-form {
+    margin-top: 2rem;
+    color: black;
+  }
+  .text{
+    color: black;
+  }
+</style>
+<body>
+  <div class="Dog-form">
+    <img class="image" style="margin-bottom: 30px;" src="{{url_for('static',filename='images/cat.jpg')}}" alt="MSM_logo" width="120px"
+      height="120px">
+    <h1 style="color:black;margin-bottom: 30px;">Add New Cat Details</h1>
     <form action="/Cat" method="POST">
         <br>
         <label for="pname"><b>Product Name</b></label>
@@ -15,18 +41,18 @@
 
         <br>
         <label for="price"><b>Price</b></label>
-        <input type="text" placeholder="Enter Price" name="price" required><br>
+        <input type="number" placeholder="Enter Price" name="price" required><br>
         <br>
 
         <label for="edate"><b>Expries In</b></label>
-        <input type="text" placeholder="Expires In(days)" name="edate" required><br>
+        <input type="number" placeholder="Expires In(days)" name="edate" required><br>
         <br>
 
         <label for="stock"><b>Stock Count</b></label>
-        <input type="text" placeholder="Enter Count" name="stock" required><br>
+        <input type="number" placeholder="Enter Count" name="stock" required><br>
         <br>
 
-        <label for="Product_Type"><b>Product_Type</label></b></label>
+        <label style="margin-bottom:30px;" for="Product_Type"><b>Product_Type</label></b></label>
         <select name="ptype" required id="ptype">
             <option value="none" selected disabled hidden>Select Product Type</option>
             <option value="Toy">Toy</option>
@@ -35,12 +61,13 @@
         </select>
 
         <label for="disc"><b>Discount</b></label>
-        <input type="text" placeholder="Discount" name="disc" required><br>
+        <input type="number" placeholder="Discount" name="disc" required><br>
 
         <br>
 
-        <button type="submit">Add</button>
+        <button style="color: black;border: 1px solid;" type="submit">Add</button>
     </form>
 </body>
-
 </html>
+
+{% endblock %}

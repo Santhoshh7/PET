@@ -269,11 +269,11 @@ def checkout():
 
 @PET.route('/userdata',methods = ['GET','POST'])
 def Userdata():
-    udet = []
-    data = list(db.find({'Product_Name':'Melamine Decal Bowl'}))
-    for i in data:
-        udet.append(i)       
-    return render_template('userdata.html',udet=udet)
+    new_taskk_history = []
+    total_history = list(db.find({},{"name":1,"email":1,"contact":1,"_id":0}))
+    for i in total_history:
+        new_taskk_history.append(i)       
+    return render_template('userdata.html',new_task_history = new_taskk_history)
 
 @PET.route('/Purchased',methods = ['GET','POST'])
 def Purchaseditems():   
@@ -283,10 +283,62 @@ def Purchaseditems():
 def Inven():   
     return render_template('inven.html')
 
+@PET.route('/dadd',methods = ['GET','POST'])
+def dadd():   
+    return render_template('dadd.html')
+
+@PET.route('/tadd',methods = ['GET','POST'])
+def tadd():   
+    return render_template('tadd.html')
+
+@PET.route('/cadd',methods = ['GET','POST'])
+def cadd():   
+    return render_template('cadd.html')
+
+@PET.route('/padd',methods = ['GET','POST'])
+def padd():   
+    return render_template('padd.html')
+
+@PET.route('/dprod')
+def dprod():
+    d = []
+    data = list(db1.find({'Animal':'Dog'}))
+    for i in data:
+        d.append(i)
+    print(d)
+    return render_template('dog_prod.html',d=d)
+
+@PET.route('/cprod')
+def dcat():
+    d = []
+    data = list(db1.find({'Animal':'Cat'}))
+    for i in data:
+        d.append(i)
+    print(d)
+    return render_template('cat_prod.html',d=d)
+
+@PET.route('/tprod')
+def dturtle():
+    d = []
+    data = list(db1.find({'Animal': 'Turtle'}))
+    for i in data:
+        d.append(i)
+    print(d)
+    return render_template('tprod.html',d=d)
+
+@PET.route('/bprod')
+def bprod():
+    d = []
+    data = list(db1.find({'Animal': 'Bird'}))
+    for i in data:
+        d.append(i)
+    print(d)
+    return render_template('bprod.html',d=d)
+
 @PET.route('/usernav')
 def usernav():
     return render_template('usernav.html')
-@PET.route('/cart')
+@PET.route('/mcart',methods = ['GET','POST'])
 def cart1():
     c1=[]
     if 'email' in session:
@@ -294,6 +346,10 @@ def cart1():
         for i in data:
             c1.append(i) 
     return render_template('cart.html',c1=c1)
+
+@PET.route('/shopping',methods = ['GET','POST'])
+def shopping():
+    return render_template('shopping.html')
 
 @PET.route('/cart/<id>',methods = ['GET','POST'])
 def cart(id):
