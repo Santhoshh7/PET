@@ -203,7 +203,14 @@ def turtle():
         flash("Data added Successfully")
     return render_template("tadd.html")
 
-   
+@PET.route("/contact")
+def contact():
+    return render_template('contact.html')
+
+@PET.route('/request')
+def request():
+    return render_template('request.html')
+
 #INVENTORY
 @PET.route("/inventory",methods=["GET","POST"])
 def Inventory():
