@@ -365,6 +365,15 @@ def check():
         # summ=list(db3.find({{}},{'_id':0,'Total_Price':1}))
     return render_template('checkout.html',c2=c2,sum=sum)
 
+
+@PET.route('/cupdate/<id>',methods = ['GET','POST'])
+def cupdate(id):
+    if request.method=="post":
+        a=request.form.get('count')
+        print(a)
+        db2.update_one({{"_id":ObjectId(id)},{"$set":{"count":a}}})
+    return redirect(url_for('cart1'))
+
 @PET.route('/cart1',methods = ['GET','POST'])
 def cart1():
     c1=[]

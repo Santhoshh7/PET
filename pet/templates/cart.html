@@ -1,4 +1,5 @@
 {% extends 'sidenav.html' %}
+
 <head>
   <!-- Bootstrap CSS -->
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/css/bootstrap.min.css"
@@ -57,6 +58,7 @@
     align-content: center;
 
   }
+
   nav {
     background-color: rgb(255, 255, 255);
     box-shadow: 1px 1px 10px rgb(77, 73, 73);
@@ -108,20 +110,21 @@
 
   }
 
-  .logout a{
+  .logout a {
     text-decoration: none;
     color: white;
   }
-  button{
+
+  button {
     text-decoration: none;
   }
-  
-  a{
+
+  a {
     text-decoration: none;
     color: white;
   }
 </style>
-{% block body %} 
+{% block body %}
 <div class="container">
   {% with messages = get_flashed_messages() %}
   {% if messages %}
@@ -134,62 +137,65 @@
     <div class="col md-12">
       <div class="jumbotron p-3">
         <h2 style="margin-left: 400px;">
-            MY<b>CART</b>
-              <button style="color:white; text-decoration: none; margin-left: 300px;" class="go_back btn btn-success float-right" type="button"><a style="text-decoration: none;color: white;" href="/users"> Back</a> </button></h2>
-          <form action="/status"></form>
-          <table class="table table-hover table-light">
-              <tr class="table table-dark">
-                <th>Image</th>
-                <th> Animal </th>
-                <th> Breed </th>
-                <th> Name </th>
-                <th> Type  </th>
-                <th>Price </th>
-                <th> Count</th>
-                <th> Discount </th>
-                <th> SubTotal </th>
-                <th> Update </th>
-                <th> Action</th>
-                
-                
-              </tr>
-              <br>
-              {% for re in c1 %}
-              <tr>
-                <td></td>
-                  <td>{{re['Animal']}}</td>
-                  <td>{{re['Breed']}}</td>
-                  <td>{{re['Product_Name']}}</td>
-                  <td>{{re['Product_Type']}}</td>
-                  <td> {{re['Price']}}</td>
+          MY<b>CART</b>
+          <button style="color:white; text-decoration: none; margin-left: 300px;"
+            class="go_back btn btn-success float-right" type="button"><a style="text-decoration: none;color: white;"
+              href="/users"> Back</a> </button>
+        </h2>
+        <table class="table table-hover table-light">
+          <tr class="table table-dark">
+            <th>Image</th>
+            <th> Animal </th>
+            <th> Breed </th>
+            <th> Name </th>
+            <th> Type </th>
+            <th>Price </th>
+            <th> Count</th>
+            <th> Discount </th>
+            <th> SubTotal </th>
+            <th> Update </th>
+            <th> Delete</th>
 
-                  <td><input type="number" name="quantity" min="1" max="100" value="{{re['Count']}}"></td>
-                  <td>{{re['Discount']}}</td>
-                 
 
-                  <td></td>
-                  <td>
-                    <a href="" class="btn btn-success btn-xs">Update</a>
-                  </td>
-                   {% set cid = re['_id'] %}
-                   <td>
-                    <a href="{{url_for('cdele',id=cid)}}" class="btn btn-danger btn-xs"
-                      onclick="return confirm('Are you sure you want to delete ?')">Remove</a>
-                  </td>
-              </tr>
-              
-          
-              {% endfor %}
-              <button class="del" type="submit"><a  href="{{ url_for('check')}}">Check Out</a></button>
-              {% endblock %}
-            <br>
-            
-          </div>
-          
-          </table>  
+          </tr>
+          <br>
+          {% for re in c1 %}
+          <tr>
+            <td></td>
+            <td>{{re['Animal']}}</td>
+            <td>{{re['Breed']}}</td>
+            <td>{{re['Product_Name']}}</td>
+            <td>{{re['Product_Type']}}</td>
+            <td> {{re['Price']}}</td>
+            <form action="/cupdate/{{re['_id']}}" method="post">
+              <td><input type="number" class="one" value="{{re['count']}}" name="count"></td>
+              <td>{{re['Discount']}}</td>
+
+
+              <td></td>
+              <td>
+                {% set rid = re['_id'] %}
+              <td><button class="btn btn-success btn-xs" type="submit">Update</button></td>
+              </td>
+            </form>
+            <td>
+              <a href="{{url_for('cdele',id=cid)}}" class="btn btn-danger btn-xs"
+                onclick="return confirm('Are you sure you want to delete ?')">Remove</a>
+            </td>
+          </tr>
+
+
+          {% endfor %}
+          <button class="del" type="submit"><a href="{{ url_for('check')}}">Check Out</a></button>
+          {% endblock %}
+          <br>
+
       </div>
+
+      </table>
     </div>
   </div>
+</div>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js"
   integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW" crossorigin="anonymous"></script>
