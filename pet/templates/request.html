@@ -1,10 +1,3 @@
-{%extends 'sidenav.html' %}
-<html lang="en">
-<head>
-<script type="text/javascript" src="https://github.com/rubyeffect/easy_fill/tree/master/lib/easy_fill-0.0.1.min.js"></script>
-  <title>Reach Me</title>
-  <link rel="stylesheet" type="text/css" href="appointment.css" />
-</head>
 <style>
     body
 {
@@ -128,12 +121,16 @@ label.light {
 
 </style>
 <body>
+    {% block body %}
+    <button style="color:#00141d;background-color: #4271a7; width: 200px; height:100px" class="go_back btn btn-success float-left" type="button"><a
+        href="/users" style="text-decoration: none; color:white">
+        < Go Back</a> </button></h2>
   <div id="container">
     <!--This is a division tag for body container-->
     <div id="body_header">
       <!--This is a division tag for body header-->
       <h1>Product Request Form</h1>
-      <p>Make your Product Requests more easier</p>
+      <p>Make your Product Requests more easier and fill your skype username to wish to connect with our team for bulk orders</p>
 
     </div>
     <form action="index.html" method="post">
@@ -181,5 +178,5 @@ label.light {
     </form>
   </div>
 </body>
-
+{% endblock %}
 </html>

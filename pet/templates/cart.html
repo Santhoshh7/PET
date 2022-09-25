@@ -154,15 +154,10 @@
             <th> Discount </th>
             <th> SubTotal </th>
             <th> Update </th>
-            <th> Delete</th>
-
-                  <td><input type="text" name="quantity" min="1" max="100" value="{{re['Count']}}"></td>
-                  <td>{{re['Discount']}}</td>
-                 
-
+            <th> Delete</th>           
           </tr>
           <br>
-          {% for re in c1 %}
+          {%for re in c1 %}
           <tr>
             <td></td>
             <td>{{re['Animal']}}</td>
@@ -170,8 +165,8 @@
             <td>{{re['Product_Name']}}</td>
             <td>{{re['Product_Type']}}</td>
             <td> {{re['Price']}}</td>
-            <form action="/cupdate/{{re['_id']}}" method="post">
-              <td><input type="number" class="one" value="{{re['count']}}" name="count"></td>
+            <form action="/cupdate/{{re['_id']}}" method="POST">
+              <td><input type="text" class="one" value="{{re['Count']}}" name="count"></td>
               <td>{{re['Discount']}}</td>
 
 
