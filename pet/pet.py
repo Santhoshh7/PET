@@ -69,7 +69,7 @@ def login():
                 flash("Welcome Admin")
                 return redirect("/Admin")
             elif(list(db.find({'email':flask.request.form['email'],'password':flask.request.form['password']},{'_id':0}))):
-                flask.session["email"]=email
+                session["email"]=email
                 flash(f"Logged in as: " +email)
                 return redirect("/users")
         except:
@@ -283,7 +283,7 @@ def cdele(id):
 @PET.route("/update/<id>",methods=["POST"])
 def update(id):
     if flask.request.method=="POST":
-        yy = db1.update_many({'_id':ObjectId(id)},  { "$set": {'Breed':request.form.get('breed'),'Expires_in':request.form.get('edate'),'Product_Name':request.form['pname'],'Product_Type':request.form['ptype'],'Product_Id':request.form['pid'],'Price':request.form['price'],'Stock_Count':request.form['stock'],'Discount':request.form['disc']}})
+        yy = db1.update_many({'_id':ObjectId(id)},  { "$set": {'Breed':flask.request.form.get('breed'),'Expires_in':flask.request.form.get('edate'),'Product_Name':flask.request.form['pname'],'Product_Type':flask.request.form['ptype'],'Product_Id':flask.request.form['pid'],'Price':flask.request.form['price'],'Stock_Count':flask.request.form['stock'],'Discount':flask.request.form['disc']}})
     return redirect(url_for('Inventory'))
 
 #USERS
@@ -427,13 +427,13 @@ def cart1():
 def shopping():
     return render_template('shopping.html')
 
-@PET.route('/cupdate/<id>',methods = ["GET","POST"])
-def cupdate(id):
-    if flask.request.method == "POST":
-        a=flask.request.form.get('count')
-        print(a)
-        db2.update_one({{"_id":ObjectId(id)},{"$set":{"count":a}}})
-        return redirect(url_for('cart1'))
+# @PET.route('/cupdate/<id>',methods = ["GET","POST"])
+# def cupdate(id):
+#     if flask.request.method == "POST":
+#         a=flask.request.form.get('count')
+#         print(a)
+#         db2.update_one({{"_id":ObjectId(id)},{"$set":{"count":a}}})
+#         return redirect(url_for('cart1'))
 
 @PET.route('/profile')
 def profile():
