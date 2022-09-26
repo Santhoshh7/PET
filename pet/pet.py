@@ -1,6 +1,5 @@
-from calendar import c
-from subprocess import BELOW_NORMAL_PRIORITY_CLASS
 from flask import Flask, render_template, request, jsonify, Response, json, redirect,url_for,flash,session
+import flask
 from flask_pymongo import PyMongo, ObjectId
 from flask_session import Session
 import re
@@ -22,28 +21,27 @@ db3=mongo.db.payments
 
 
 #HOME
-@PET.route("/",methods=["GET","POST"])
+@PET.route("/")
 def home():
-    return render_template("Home.html")
+    return flask.render_template("Home.html")
 
 #SIGNUP
-@PET.route("/signup",methods=["POST","GET"])
+@PET.route("/signup",methods=["GET","POST"])
 def Signup():
-    if request.method=="POST":
-        name=request.form['username']
-        password=request.form['password']
-        email=request.form['email']
-        contact=request.form['contact'] 
-        address=request.form['address'] 
-        
-        dist_mail=list(db.find({'email':request.form['email']}))
+    if flask.request.method=="POST":
+        name=flask.request.form['username']
+        password=flask.request.form['password']
+        email=flask.request.form['email']
+        contact=flask.request.form['contact'] 
+        address=flask.request.form['address']
+        dist_mail=list(db.find({'email':flask.request.form['email']}))
         if not re.fullmatch(r'\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Z|a-z]{2,}\b', email):
-            flash(f"Please enter a valid email id")
+            flask.flash(f"Please enter a valid email id")
         elif(dist_mail):
-            flash(f'"email already exists please enter a new email"','danger')
+            flask.flash(f'"email already exists please enter a new email"','danger')
 
         elif not re.fullmatch(r'^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!#%*?&]{8,10}$', password):
-            flash(f"Password should contain 8-10 characters with atleast 1 uppercase letter, lowercase letter, digit, and a special character")
+            flask.flash(f"Password should contain 8-10 characters with atleast 1 uppercase letter, lowercase letter, digit, and a special character")
         else:
             id=db.insert_one({
                 'name':name,
@@ -52,9 +50,9 @@ def Signup():
                 'contact':contact,
                 'address':address
             })
-            flash("Signup Succesful")
-            return redirect("/")
-    return render_template("Signup.html")
+            flask.flash("Signup Succesful")
+            return flask.redirect("/")
+    return flask.render_template("Signup.html")
 
 #LOGIN
 @PET.route("/login",methods=["GET","POST"])
@@ -62,8 +60,6 @@ def login():
     if flask.request.method=="POST":
         email=flask.request.form['email']
         password=flask.request.form['password']
-        print(email)
-        print(password)
         test=list(db.find({'email':email,'password':password},{"_id":0}))
         check=list(db.find({'email':email,'password':password},{'_id':0}))
         try:
@@ -71,14 +67,14 @@ def login():
                 session["email"]=email
                 flash("Welcome Admin")
                 return redirect("/Admin")
-            elif(list(db.find({'email':email,'password':password},{'_id':0}))):
+            elif(list(db.find({'email':flask.request.form['email'],'password':flask.request.form['password']},{'_id':0}))):
                 session["email"]=email
                 flash(f"Logged in as: " +email)
                 return redirect("/users")
         except:
             flash("INVALID LOGIN")
-            return redirect("/login")
-    return render_template("Login.html")
+            return flask.redirect("/login")
+    return flask.render_template("Login.html")
 
 
 #LOGOUT
@@ -102,15 +98,15 @@ def Animal():
 #DOG ADD
 @PET.route("/Dog",methods=["GET","POST"])
 def Dog():
-    if request.method=="POST":
-        Breed=request.form.get('dbreed')
-        Product_Name=request.form['pname']
-        Product_Type=request.form.get('ptype')
-        Product_Id=request.form['pid']
-        Price=request.form['price']
-        Expires_in=request.form['edate']
-        Stock_Count=request.form['stock'] 
-        Discount=request.form['disc'] 
+    if flask.request.method=="POST":
+        Breed=flask.request.form.get('dbreed')
+        Product_Name=flask.request.form['pname']
+        Product_Type=flask.request.form.get('ptype')
+        Product_Id=flask.request.form['pid']
+        Price=flask.request.form['price']
+        Expires_in=flask.request.form['edate']
+        Stock_Count=flask.request.form['stock'] 
+        Discount=flask.request.form['disc'] 
 
         id=db1.insert_one({
             'Animal': 'Dog',
@@ -129,14 +125,14 @@ def Dog():
 #CAT ADD
 @PET.route("/Cat",methods=["GET","POST"])
 def Cat():
-    if request.method=="POST":
-        Product_Name=request.form['pname']
-        Product_Type=request.form.get('ptype')
-        Product_Id=request.form['pid']
-        Price=request.form['price']
-        Expires_in=request.form['edate']
-        Stock_Count=request.form['stock'] 
-        Discount=request.form['disc'] 
+    if flask.request.method=="POST":
+        Product_Name=flask.request.form['pname']
+        Product_Type=flask.request.form.get('ptype')
+        Product_Id=flask.request.form['pid']
+        Price=flask.request.form['price']
+        Expires_in=flask.request.form['edate']
+        Stock_Count=flask.request.form['stock'] 
+        Discount=flask.request.form['disc'] 
 
         id=db1.insert_one({
             'Animal': 'Cat',
@@ -156,15 +152,15 @@ def Cat():
 @PET.route("/Parrot",methods=["GET","POST"])
 def Parrot():
     
-    if request.method=="POST":
-        Breed=request.form.get('breed')
-        Product_Name=request.form['pname']
-        Product_Type=request.form.get('ptype')
-        Product_Id=request.form['pid']
-        Price=request.form['price']
-        Expires_in=request.form['edate']
-        Stock_Count=request.form['stock'] 
-        Discount=request.form['disc'] 
+    if flask.request.method=="POST":
+        Breed=flask.request.form.get('breed')
+        Product_Name=flask.request.form['pname']
+        Product_Type=flask.request.form.get('ptype')
+        Product_Id=flask.request.form['pid']
+        Price=flask.request.form['price']
+        Expires_in=flask.request.form['edate']
+        Stock_Count=flask.request.form['stock'] 
+        Discount=flask.request.form['disc'] 
 
         id=db1.insert_one({
             'Animal': 'Bird',
@@ -183,14 +179,14 @@ def Parrot():
 @PET.route("/Turtle",methods=["GET","POST"])
 def turtle():
     
-    if request.method=="POST":
-        Product_Name=request.form['pname']
-        Product_Type=request.form.get('ptype')
-        Product_Id=request.form['pid']
-        Price=request.form['price']
-        Expires_in=request.form['edate']
-        Stock_Count=request.form['stock'] 
-        Discount=request.form['disc'] 
+    if flask.request.method=="POST":
+        Product_Name=flask.request.form['pname']
+        Product_Type=flask.request.form.get('ptype')
+        Product_Id=flask.request.form['pid']
+        Price=flask.request.form['price']
+        Expires_in=flask.request.form['edate']
+        Stock_Count=flask.request.form['stock'] 
+        Discount=flask.request.form['disc'] 
 
         id=db1.insert_one({
             'Animal': 'Turtle',
@@ -208,6 +204,46 @@ def turtle():
 @PET.route("/contact")
 def contact():
     return render_template('contact.html')
+
+@PET.route("/updatePassword", methods=["POST"])
+def updatePassword():
+    msg = ""
+    x = db.find_one({'email': session['email']})
+    print(x)
+    user_password = flask.request.form["oldpasswd"]
+    print(user_password)
+    # print(x['password'])
+    if x['password'] == user_password:
+        new_password = flask.request.form["newpasswd"]
+        db.update_one({'email': session['email']}, {
+                         '$set': {'password': new_password}})
+        msg = "Updated password successfully"
+    else:
+        msg = "Wrong password"
+
+    return render_template("profile.html", title="User profile", message=msg, user=getUserStats())
+
+def getUserStats():
+    user_stats = {
+        'name': db.find_one({'email': session['email']})['name'],
+        'email': session['email']
+    }
+    return user_stats
+
+@PET.errorhandler(404)
+def page_not_found(e):
+    return render_template('404.html'), 404
+
+@PET.route("/deleteAccount", methods=["POST"])
+def deleteUser():
+    user_password = flask.request.form["passwd"]
+    x = db.find_one({'email': session['email']})
+    if x['password'] == user_password:
+        db.delete_one({'email': session['email']})
+        return redirect(url_for("Logout"))
+    else:
+        msg = "Wrong password. Account deletion failed."
+        return render_template("profile.html", title="User profile", message=msg)
 
 @PET.route('/request')
 def request():
@@ -402,6 +438,18 @@ def cart1():
 @PET.route('/shopping',methods = ['GET','POST'])
 def shopping():
     return render_template('shopping.html')
+
+# @PET.route('/cupdate/<id>',methods = ["GET","POST"])
+# def cupdate(id):
+#     if flask.request.method == "POST":
+#         a=flask.request.form.get('count')
+#         print(a)
+#         db2.update_one({{"_id":ObjectId(id)},{"$set":{"count":a}}})
+#         return redirect(url_for('cart1'))
+
+@PET.route('/profile')
+def profile():
+    return render_template('profile.html')
 
 @PET.route('/cart/<id>',methods = ['GET','POST'])
 def cart(id):

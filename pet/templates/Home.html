@@ -1,93 +1,184 @@
-{%include 'navbar.html' %}
+{%include 'navbar.html'%}
+{% block content %}
+<title>Home Page</title>
 <style>
-  h1 {
-    color: bisque;
+  nav {
+    z-index: 2;
+  }
+
+  body {
+    background-image: url("static/images/windows11.webp");
+  }
+
+  .main {
+    width: 80%;
+    background: rgba(255, 255, 255, 0.05);
+    box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+    backdrop-filter: blur(58px);
+    -webkit-backdrop-filter: blur(8px);
+    border-radius: 10px;
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    margin: 2% auto;
+    padding-bottom: 4rem;
+  }
+
+  .maincontainer {
+    color: aliceblue;
     display: flex;
-    font-size: 150px;
     justify-content: center;
-  }
-
-  .login {
-
     text-align: center;
-    display: inline-block;
-    border: none;
+    align-items: center;
+    padding: 2rem;
   }
 
-  .Thome {
+  h1 {
+    font-size: 3rem;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    color: #2193fe;
+  }
+
+  .quote {
+    color: aliceblue;
     text-align: center;
-    display: inline-block;
-    border: none;
+    width: 50%;
+    margin: 1rem auto;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    margin-top: 3rem;
   }
 
-  .f1 {
-    display: inline-block;
-    padding-top: 50px;
-  }
-
-  .f2 {
-    display: inline-block;
-  }
-
-  p {
+  .text {
+    color: aliceblue;
+    margin-top: 8rem;
     text-align: center;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   }
 
-  .center {
-    text-align: center;
+  footer {
+    width: 90%;
+    height: 15rem;
+    box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+    backdrop-filter: blur(58px);
+    -webkit-backdrop-filter: blur(8px);
+    border-radius: 10px;
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    margin-top: 5rem;
+    display: flex;
+    padding: 4rem 2rem;
+    padding-bottom: 6rem;
+    margin: 5% auto;
   }
 
-  .c1 {
-    font-size: 25px;
+  .foot-left,
+  .foot-center,
+  .foot-right {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
   }
 
-  div {
-    text-align: center;
+  h1 {
+    color: aliceblue;
+    font-size: 2rem;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
   }
 
-  button:hover {
+  p,
+  h2 {
+    color: aliceblue;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+  }
+
+  p:hover {
     cursor: pointer;
-    background-color: green;
+    color: rgb(180, 226, 232);
   }
 
-  button {
-    width: 150px;
-    height: 40px;
-    border-radius: 15px;
-    background-color: rgb(206, 54, 54);
-    border: none;
-    font-size: 20px;
-  }
-
-  h1 {
-    font-size: calc(1.375rem + 1.5vw);
-    display: flex;
+  .foot-left {
+    text-align: center;
     justify-content: center;
+    align-items: center;
   }
 
-  .c1 {
-    justify-content: center;
-    display: flex;
+  footer img {
+    width: 50%;
+  }
+
+  .small {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    text-align: center;
+    font-size: 1rem;
   }
 </style>
-{%block body %}
 
-<h1 style="display:flex; justify-content:center; margin-bottom: 30px;"> NIP-PET</h1>
-<div class="container">
-  <p>
-    <b style="display:flex; justify-content:center;" class="c1"> Welcome to NIP-PET</b>
-  </p>
-  {% with messages = get_flashed_messages() %}
-  {% if messages %}
-  {% for message in messages %}
-  {{ message }}
-  {% endfor %}
-  {% endif %}
-  {% endwith %}
-  <div style="display:flex; justify-content:center;" class="button div">
-
-  <button style = "margin-right:14px;padding: 0.6rem;"onclick="location.href='http://127.0.0.1:2027/login'" type="button">Login</button>
-  <button  style = "padding: 0.6rem;" onclick="location.href='http://127.0.0.1:2027/signup'" type="button">Sign up</button>
+<body>
+  <div class="main">
+    <div class="maincontainer">
+      <img src="static/images/corestack_logo.webp" alt="">
+      <h1>PET STORE MANAGEMENT SYSTEM</h1>
+    </div>
+    <div class="quote">
+      It was created with the ambition to be an ecosystem for pets and pet parenting for India. While we are still in our
+      fledgling days, we aim to source the best of the products from manufacturers and brands, small or big, and bring
+      them to the loving pet parents across the country. So we simply decided Pet Store for corestack..!!!
+    </div>
+    <div class="text">
+      <p>Wanna shop for the best products available globally?</p>
+      <p>Click Here to <a href="/signup">Signup</a> </p>
+      <p>Already Registered? <a href="/login">Login</a> </p>
+    </div>
   </div>
-</div>
-{%endblock%}
+
+  <footer>
+    <div class="foot-left">
+      <img src="static/images/corestack_logo.webp" alt="">
+      <h1>Budget Tracker</h1>
+    </div>
+    <div class="foot-center">
+      <h2>Quick Links</h2>
+      <p>About</p>
+      <p>Customers</p>
+      <p>Our Services</p>
+    </div>
+    <div class="foot-right">
+      <h2>Contact Us</h2>
+      <p>9192939495</p>
+      <p>RMZ One Paramount,Chennai</p>
+    </div>
+
+  </footer>
+  <h1 style="margin-left: 350px; margin-bottom:40px">RMZ SOFTWARE PARK CAMPUS 10, CORESTACK</h1>
+  <div class="mapouter">
+    <div class="gmap_canvas"><iframe class="gmap_iframe" frameborder="0" scrolling="no" marginheight="0" marginwidth="0"
+        src="https://maps.google.com/maps?width=600&amp;height=400&amp;hl=en&amp;q=rmz one paramount&amp;t=&amp;z=16&amp;ie=UTF8&amp;iwloc=B&amp;output=embed"></iframe><a
+        href="https://mcpenation.com/">https://mcpenation.com</a></div>
+    <style>
+      .mapouter {
+        position: relative;
+        text-align: right;
+        width: 600px;
+        height: 400px;
+        margin-left: 400px;
+      }
+
+      .gmap_canvas {
+        overflow: hidden;
+        background: none !important;
+        width: 600px;
+        height: 400px;
+      }
+
+      .gmap_iframe {
+        width: 600px !important;
+        height: 400px !important;
+      }
+    </style>
+  </div>
+  <div class="small">
+    <small style="color:white ;">Made with <span style="color: red;">&#10084;</span> in Corestack</small>
+    <br>
+    <small style="color:white ;">Contributed by Arsh Jain and Santosh Kumar S</small>
+    <br>
+  </div>
+
+</body>
+{% endblock %}
