@@ -4,6 +4,7 @@ from flask import Flask, render_template, request, jsonify, Response, json, redi
 from flask_pymongo import PyMongo, ObjectId
 from flask_session import Session
 import re
+import flask
 
 PET=Flask(__name__)
 PET.config['MONGO_URI']="mongodb://localhost:27017/petapp"
@@ -34,7 +35,6 @@ def Signup():
         email=request.form['email']
         contact=request.form['contact'] 
         address=request.form['address'] 
-
         
         dist_mail=list(db.find({'email':request.form['email']}))
         if not re.fullmatch(r'\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Z|a-z]{2,}\b', email):
@@ -59,9 +59,11 @@ def Signup():
 #LOGIN
 @PET.route("/login",methods=["GET","POST"])
 def login():
-    if request.method=="POST":
-        email=request.form['email']
-        password=request.form['password']
+    if flask.request.method=="POST":
+        email=flask.request.form['email']
+        password=flask.request.form['password']
+        print(email)
+        print(password)
         test=list(db.find({'email':email,'password':password},{"_id":0}))
         check=list(db.find({'email':email,'password':password},{'_id':0}))
         try:
@@ -69,7 +71,7 @@ def login():
                 session["email"]=email
                 flash("Welcome Admin")
                 return redirect("/Admin")
-            elif(list(db.find({'email':request.form['email'],'password':request.form['password']},{'_id':0}))):
+            elif(list(db.find({'email':email,'password':password},{'_id':0}))):
                 session["email"]=email
                 flash(f"Logged in as: " +email)
                 return redirect("/users")
@@ -214,9 +216,9 @@ def request():
 #INVENTORY
 @PET.route("/inventory",methods=["GET","POST"])
 def Inventory():
-    Animal=request.form.get('Animal')
+    Animal=flask.request.form.get('Animal')
     det=[]
-    if request.method=="POST":
+    if flask.request.method=="POST":
         if (list((db1.find({'Animal':Animal})))):
             data=(list((db1.find({'Animal':Animal}))))
             for i in data:
@@ -243,8 +245,8 @@ def cdele(id):
 #ADMIN UPDATE
 @PET.route("/update/<id>",methods=["POST"])
 def update(id):
-    if request.method=="POST":
-        yy = db1.update_many({'_id':ObjectId(id)},  { "$set": {'Breed':request.form.get('breed'),'Expires_in':request.form.get('edate'),'Product_Name':request.form['pname'],'Product_Type':request.form['ptype'],'Product_Id':request.form['pid'],'Price':request.form['price'],'Stock_Count':request.form['stock'],'Discount':request.form['disc']}})
+    if flask.request.method=="POST":
+        yy = db1.update_many({'_id':ObjectId(id)},  { "$set": {'Breed':flask.request.form.get('breed'),'Expires_in':flask.request.form.get('edate'),'Product_Name':flask.request.form['pname'],'Product_Type':flask.request.form['ptype'],'Product_Id':flask.request.form['pid'],'Price':flask.request.form['price'],'Stock_Count':flask.request.form['stock'],'Discount':flask.request.form['disc']}})
     return redirect(url_for('Inventory'))
 
 #USERS
@@ -288,7 +290,7 @@ def Userdata():
 
 @PET.route('/Purchased',methods = ['GET','POST'])
 def Purchaseditems():   
-    return render_template('apurchased.html')
+    return render_template('purchased.html')
 
 @PET.route('/inven',methods = ['GET','POST'])
 def Inven():   
@@ -355,17 +357,19 @@ def orders():
     pass
     return render_template('myorders.html')
 
-@PET.route('/check',methods = ['GET','POST'])
+@PET.route('/check',methods = ['GET','POST']) 
 def check():
     c2=[]
     if 'email' in session:
         bemail=session["email"] 
         data=list(db2.find({'bemail':bemail}))
-        sum=list(db2.aggregate([{"$group":{"_id": 0,"TotalPrice": { "$sum": "$Price"}}}]))
+        sum=list(db2.aggregate([{"$group":{"_id": 0,"TotalPrice": { "$sum": "$subtotal"}}}]))
         for i in data:
+            
             c2.append(i)
         id=db3.insert_one({
             'bemail':bemail,
+            # 'Products':d,
             'pid': 1,
             'Discount':0,
             'Total_Price':sum[0]["TotalPrice"]})
@@ -375,11 +379,16 @@ def check():
 
 @PET.route('/cupdate/<id>',methods = ['GET','POST'])
 def cupdate(id):
-    if request.method=="post":
-        a=request.form.get('count')
-        print(a)
-        db2.update_one({{"_id":ObjectId(id)},{"$set":{"count":a}}})
-    return redirect(url_for('cart1'))
+    if flask.request.method=="POST":
+        db2.update_one({"_id":ObjectId(id)},{"$set":{"count":flask.request.form['count']}})
+        db2.update_many({}, [ {"$set":{ "count" : {"$toInt": "$count"}}} ],True)
+        d=flask.request.form['count']
+        l=list(db2.find({"_id":ObjectId(id)},{"subtotal": {"$multiply":["$count","$Price"]}}))
+        l1=l[0]['subtotal']
+        db2.update_one({"_id":ObjectId(id)},{"$set":{"subtotal":l1}})
+        db2.update_one({"_id":ObjectId(id)},{"$set":{"count":flask.request.form['count']}})
+        db2.update_many({}, [ {"$set":{ "count" : {"$toInt": "$count"}}} ],True)
+        return redirect(url_for('cart1'))
 
 @PET.route('/cart1',methods = ['GET','POST'])
 def cart1():
@@ -401,7 +410,6 @@ def cart(id):
     bemail=session["email"]
     if 'email' in session:
         cdata = list(db1.find({"_id":ObjectId(id)}))
-        
         for i in cdata:
             c.append(i)
         c1data = list(db1.find({"_id":ObjectId(id)},{"Product_Id":1}))
@@ -426,6 +434,7 @@ def cart(id):
                         'Product_Name': c[0]['Product_Name'],
                         'Product_Type': c[0]['Product_Type'],
                         'Price':c[0]['Price'],
+                        'subtotal':c[0]['Price'],
                         'Discount':c[0]['Discount'],
                         'count':1
                      })
@@ -442,6 +451,8 @@ def cart(id):
                         'count':1
                      })
         db2.update_many({}, [ {"$set":{ "Price" : {"$toInt": "$Price"}}} ],True)
+
+
     return redirect(url_for('cart1'))
 
 if __name__ == "__main__":

@@ -156,35 +156,31 @@
             <th> Update </th>
             <th> Delete</th>
 
-                  <td><input type="text" name="quantity" min="1" max="100" value="{{re['Count']}}"></td>
-                  <td>{{re['Discount']}}</td>
-                 
-
           </tr>
           <br>
           {% for re in c1 %}
-          <tr>
-            <td></td>
-            <td>{{re['Animal']}}</td>
-            <td>{{re['Breed']}}</td>
-            <td>{{re['Product_Name']}}</td>
-            <td>{{re['Product_Type']}}</td>
-            <td> {{re['Price']}}</td>
-            <form action="/cupdate/{{re['_id']}}" method="post">
+          <form action="/cupdate/{{re['_id']}}" method="post">
+            <tr>
+              <td></td>
+              <td>{{re['Animal']}}</td>
+              <td>{{re['Breed']}}</td>
+              <td>{{re['Product_Name']}}</td>
+              <td>{{re['Product_Type']}}</td>
+              <td> {{re['Price']}}</td>
               <td><input type="number" class="one" value="{{re['count']}}" name="count"></td>
               <td>{{re['Discount']}}</td>
+              
+              <td>{{re['subtotal']}}</td>
 
-
-              <td></td>
-              <td>
                 {% set rid = re['_id'] %}
               <td><button class="btn btn-success btn-xs" type="submit">Update</button></td>
               </td>
-            </form>
-            <td>
-              <a href="{{url_for('cdele',id=cid)}}" class="btn btn-danger btn-xs"
-                onclick="return confirm('Are you sure you want to delete ?')">Remove</a>
-            </td>
+          </form>
+          <td>
+            {% set rid = re['_id'] %}
+            <a href="{{url_for('cdele',id=rid)}}" class="btn btn-danger btn-xs"
+              onclick="return confirm('Are you sure you want to delete ?')">Remove</a>
+          </td>
           </tr>
 
 
