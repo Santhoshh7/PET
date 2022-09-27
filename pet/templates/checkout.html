@@ -214,7 +214,7 @@
 
     </tr>
     <br>
-    {% for re in c1 %}
+    {% for re in c3[0]%}
     <form>
       <tr>
         <td></td>
@@ -304,9 +304,9 @@
                 
             </table>
         </div>
-        
+        <form action="/buy" method="post">
         <div class="buynow">
-            <form action="/buy" method="post">
+            
             <button class="button button--full"  type="submit"><svg class="icon">
                     <use xlink:href="#icon-shopping-bag" />
                 </svg>Buy Now</button>

@@ -394,9 +394,9 @@ def orders():
     return render_template('myorders.html')
 
 @PET.route('/check',methods = ['GET','POST']) 
-def check():
-        
+def check():       
     c2=[]
+    c3=[]
     if 'email' in session:
         bemail=session["email"] 
         data=list(db2.find({'bemail':bemail}))
@@ -410,23 +410,26 @@ def check():
             'Discount':0,
             'Total_Price':sum[0]["TotalPrice"]})
 
-
         c1=[]
         data=list(db2.find({}))
-        for i in data:
-            c1.append(i)
-        oinsert = db4.insert_one({
-            'bemail':bemail,
-            'Animal':c1[0]['Animal'],
-            'Breed':c1[0]['Breed'],
-            'Product_Name':c1[0]['Product_Name'],
-            'Product_Type':c1[0]['Product_Type'],
-            'Price':c1[0]['Price'],
-            'Quantity':c1[0]['count'],
-            'Discount':c1[0]['Discount'],
-            'Subtotal': sum[0]["TotalPrice"]})
-        db4.insert_many([{oinsert}])
-    return render_template('checkout.html',c1=c1,c2=c2,sum=sum)
+        id1=db4.insert_one({'bemail':bemail,"products":data})
+        id2=list(db4.find({'bemail':bemail},{"_id":0,"products":1}))
+        id3=id2[0]
+        for k in id3.values():
+            c3.append(k)
+        print(c3)
+        # oinsert = db4.insert_one({
+        #     'bemail':bemail,
+        #     'Animal':c1[0]['Animal'],
+        #     'Breed':c1[0]['Breed'],
+        #     'Product_Name':c1[0]['Product_Name'],
+        #     'Product_Type':c1[0]['Product_Type'],
+        #     'Price':c1[0]['Price'],
+        #     'Quantity':c1[0]['count'],
+        #     'Discount':c1[0]['Discount'],
+        #     'Subtotal': sum[0]["TotalPrice"]}])
+        # db4.insert_many({},{ "$push": { "purchased": oinsert } })
+    return render_template('checkout.html',c3=c3,c2=c2,sum=sum)
 
 @PET.route('/buy',methods = ['GET','POST'])
 def buy():
