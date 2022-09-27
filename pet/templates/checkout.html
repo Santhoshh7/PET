@@ -200,7 +200,35 @@
     }
 </style>
 {%block body %}
+<table class="table table-hover table-dark">
+    <tr class="table table-dark">
+      <th>Image</th>
+      <th> Animal </th>
+      <th> Breed </th>
+      <th> Name </th>
+      <th> Type </th>
+      <th>Price </th>
+      <th> Count</th>
+      <th> Discount </th>
+      <th> SubTotal </th>
 
+    </tr>
+    <br>
+    {% for re in c1 %}
+    <form>
+      <tr>
+        <td></td>
+        <td>{{re['Animal']}}</td>
+        <td>{{re['Breed']}}</td>
+        <td>{{re['Product_Name']}}</td>
+        <td>{{re['Product_Type']}}</td>
+        <td> {{re['Price']}}</td>
+        <td>{{re['count']}}</td>
+        <td>{{re['Discount']}}</td>
+        
+        <td>{{re['subtotal']}}</td>
+    </tr>{%endfor%}
+</table>
 <button style="color:#00141d;background-color: #fc8080;" class="go_back btn btn-success float-left" type="button"><a
         href="/">
         < Back</a> </button></h2>
@@ -278,9 +306,11 @@
         </div>
         
         <div class="buynow">
-            <button class="button button--full" type="submit"><svg class="icon">
+            <form action="/buy" method="post">
+            <button class="button button--full"  type="submit"><svg class="icon">
                     <use xlink:href="#icon-shopping-bag" />
                 </svg>Buy Now</button>
+            </form>
                 
         </div>
         

@@ -17,7 +17,7 @@ db=mongo.db.users
 db1=mongo.db.animals
 db2=mongo.db.cart
 db3=mongo.db.payments
-
+db4= mongo.db.orders
 
 
 #HOME
@@ -395,13 +395,13 @@ def orders():
 
 @PET.route('/check',methods = ['GET','POST']) 
 def check():
+        
     c2=[]
     if 'email' in session:
         bemail=session["email"] 
         data=list(db2.find({'bemail':bemail}))
         sum=list(db2.aggregate([{"$group":{"_id": 0,"TotalPrice": { "$sum": "$subtotal"}}}]))
         for i in data:
-            
             c2.append(i)
         id=db3.insert_one({
             'bemail':bemail,
@@ -409,9 +409,31 @@ def check():
             'pid': 1,
             'Discount':0,
             'Total_Price':sum[0]["TotalPrice"]})
-        # summ=list(db3.find({{}},{'_id':0,'Total_Price':1}))
-    return render_template('checkout.html',c2=c2,sum=sum)
 
+
+        c1=[]
+        data=list(db2.find({}))
+        for i in data:
+            c1.append(i)
+        oinsert = db4.insert_one({
+            'bemail':bemail,
+            'Animal':c1[0]['Animal'],
+            'Breed':c1[0]['Breed'],
+            'Product_Name':c1[0]['Product_Name'],
+            'Product_Type':c1[0]['Product_Type'],
+            'Price':c1[0]['Price'],
+            'Quantity':c1[0]['count'],
+            'Discount':c1[0]['Discount'],
+            'Subtotal': sum[0]["TotalPrice"]})
+        db4.insert_many([{oinsert}])
+    return render_template('checkout.html',c1=c1,c2=c2,sum=sum)
+
+@PET.route('/buy',methods = ['GET','POST'])
+def buy():
+    db1.update_one({})
+    db2.delete_one({'email': session['email']})
+
+    return render_template('buy.html')
 
 @PET.route('/cupdate/<id>',methods = ['GET','POST'])
 def cupdate(id):
@@ -483,6 +505,7 @@ def cart(id):
                         'Product_Type': c[0]['Product_Type'],
                         'Price':c[0]['Price'],
                         'subtotal':c[0]['Price'],
+
                         'Discount':c[0]['Discount'],
                         'count':1
                      })
